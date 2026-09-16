@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DELGERBAT — CSS Portfolio</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: sans-serif;
+      line-height: 1.6;
+      color: #1e293b;
+      background-color: #f0fdfa;
+    }
+
+    a {
+      text-decoration: none;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+    }
+
+    h2 {
+      font-size: 1.75rem;
+      margin-bottom: 24px;
+    }
+
+    h3 {
+      font-size: 1.1rem;
+      margin-bottom: 8px;
+      color: #0f766e;
+    }
+
+    p {
+      color: #475569;
+    }
+
+    .nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: #1e293b;
+      padding: 16px 40px;
+    }
+
+    .nav-logo {
+      color: #10B981;
+      font-weight: bold;
+      font-size: 1.3rem;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 24px;
+    }
+
+    .nav-links a {
+      color: #94a3b8;
+    }
+
+    .nav-links a:hover {
+      color: #10B981;
+    }
+
+    .hero {
+      background: linear-gradient(135deg, #f0fdfa 0%, #ccfbf1 100%);
+      padding: 100px 40px;
+      text-align: center;
+    }
+
+    .hero h1 {
+      color: #0f766e;
+      margin-bottom: 16px;
+    }
+
+    .hero p {
+      margin-bottom: 32px;
+    }
+
+    .btn {
+      display: inline-block;
+      background-color: #0f766e;
+      color: white;
+      padding: 14px 32px;
+      border-radius: 8px;
+      font-weight: 600;
+    }
+
+    .skills-section {
+      padding: 80px 40px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .skills-grid {
+      display: flex;
+      gap: 20px;
+    }
+
+    .skill-card {
+      flex: 1;
+      background: white;
+      border: 1px solid #99f6e4;
+      border-radius: 12px;
+      padding: 28px;
+    }
+
+    .footer {
+      background-color: #1e293b;
+      color: #94a3b8;
+      text-align: center;
+      padding: 28px;
+    }
+  </style>
+</head>
+<body>
+  <nav class="nav">
+    <span class="nav-logo">DELGERBAT</span>
+    <div class="nav-links">
+      <a href="#skills">Skills</a>
+      <a href="#about">About</a>
+    </div>
+  </nav>
+
+  <section class="hero">
+    <h1>Hello, I am DELGERBAT!</h1>
+    <p>Computer Engineering Student at Gachon University · Gaming</p>
+    <a href="#skills" class="btn">See My Skills</a>
+  </section>
+
+  <section class="skills-section" id="skills">
+    <h2>My Skills</h2>
+    <div class="skills-grid">
+      <div class="skill-card">
+        <h3>Researching</h3>
+        <p>Finding and understanding information.</p>
+      </div>
+      <div class="skill-card">
+        <h3>Communication</h3>
+        <p>Sharing ideas clearly with others.</p>
+      </div>
+      <div class="skill-card">
+        <h3>Emotional Intelligence</h3>
+        <p>Understanding emotions and people.</p>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <p>DELGERBAT · Computer Engineering · Gachon University</p>
+  </footer>
+</body>
+</html>

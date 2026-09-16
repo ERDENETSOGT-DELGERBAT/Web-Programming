@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Flexbox</title>
+  <style>
+    .flex-row {
+      display: flex;
+      gap: 12px;
+      padding: 16px;
+      background: #f8fafc;
+    }
+    .between {
+      justify-content: space-between;
+    }
+    .item {
+      background: #14B8A6;
+      color: white;
+      padding: 12px 20px;
+      border-radius: 6px;
+    }
+    .grow {
+      flex: 1;
+    }
+  </style>
+</head>
+<body>
+  <div class="flex-row">
+    <div class="item">A</div>
+    <div class="item">B</div>
+    <div class="item">C</div>
+  </div>
+
+  <div class="flex-row between">
+    <div class="item">Left</div>
+    <div class="item">Right</div>
+  </div>
+
+  <div class="flex-row">
+    <div class="item grow">flex: 1</div>
+  </div>
+</body>
+</html>

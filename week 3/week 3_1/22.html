@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>CSS Specificity</title>
+  <style>
+    p { color: gray; }
+    .intro { color: blue; }
+    #main { color: green; }
+    p.intro { color: purple; }
+    #main p { color: orange; }
+  </style>
+</head>
+<body>
+  <p>Plain paragraph</p>
+  <p class="intro">Paragraph with class</p>
+  <p class="intro" id="main">Paragraph with class and ID</p>
+</body>
+</html>
