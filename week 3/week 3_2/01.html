@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <title>
+   CSS Position
+  </title>
+  <style>
+.box {
+  width:120px;
+  height:60px;
+  background:#0f766e;
+  color:white;
+  padding:8px;
+  margin:6px;
+  font-size:14px;
+}
+.static {
+  position:static;
+}
+.relative {
+  position:relative;
+  top:20px;
+  left:30px;
+  background:#14b8a6;
+}
+  </style>
+ </head>
+ <body>
+  <div class="box static">
+   static
+  </div>
+  <div class="box relative">
+   relative
+  </div>
+  <div class="box static">
+   Next element
+  </div>
+ </body>
+</html>
