@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Topic 2</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      padding: 30px;
+    }
+
+    button {
+      padding: 10px 18px;
+      margin: 5px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <h1 id="greeting">Hello</h1>
+
+  <button id="change-text">Change Text</button>
+  <button id="change-color">Change Color</button>
+  <button id="reset">Reset</button>
+
+  <script>
+    const heading = document.getElementById('greeting');
+
+    document.getElementById('change-text').addEventListener('click', () => {
+      heading.textContent = 'Hello, DELGERBAT!';
+    });
+
+    document.getElementById('change-color').addEventListener('click', () => {
+      heading.style.color = '#0f766e';
+    });
+
+    document.getElementById('reset').addEventListener('click', () => {
+      heading.textContent = 'Hello';
+      heading.style.color = '';
+    });
+  </script>
+
+</body>
+</html>
