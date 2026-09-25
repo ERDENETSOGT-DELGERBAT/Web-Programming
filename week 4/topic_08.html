@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Topic 8</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      padding: 30px;
+      text-align: center;
+    }
+
+    button {
+      padding: 12px 20px;
+      margin: 5px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    #result {
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+
+  <button id="button-a">Button A</button>
+  <button id="button-b">Button B</button>
+
+  <p id="result">Click a button.</p>
+
+  <script>
+    const result = document.querySelector('#result');
+
+    document.querySelector('#button-a').addEventListener('click', (e) => {
+      result.textContent = e.target.textContent + ' was clicked.';
+    });
+
+    document.querySelector('#button-b').addEventListener('click', (e) => {
+      result.textContent = e.target.textContent + ' was clicked.';
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        result.textContent = 'You pressed Enter.';
+      }
+    });
+  </script>
+
+</body>
+</html>
