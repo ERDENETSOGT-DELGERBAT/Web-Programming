@@ -144,7 +144,7 @@
       });
 
       box.addEventListener('dblclick', () => {
-        const index = colors.indexOf(color);
+        const index = [...palette.children].indexOf(box);
 
         if (index !== -1) {
           colors.splice(index, 1);
