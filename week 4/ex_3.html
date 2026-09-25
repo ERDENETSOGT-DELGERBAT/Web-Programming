@@ -107,10 +107,18 @@
       }
 
       const li = document.createElement('li');
-      li.className = 'todo-item';
-      li.innerHTML = `<span>${text}</span><button class="del-btn">✕</button>`;
+      const span = document.createElement('span');
+      const button = document.createElement('button');
 
+      li.className = 'todo-item';
+      span.textContent = text;
+      button.className = 'del-btn';
+      button.textContent = '✕';
+
+      li.appendChild(span);
+      li.appendChild(button);
       list.appendChild(li);
+
       input.value = '';
       updateEmpty();
     }
