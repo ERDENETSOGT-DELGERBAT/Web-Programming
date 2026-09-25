@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Topic 1</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      padding: 30px;
+    }
+
+    .box {
+      padding: 20px;
+      background-color: #f0fdfa;
+      border: 2px solid #14b8a6;
+      border-radius: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1 id="title">Hello</h1>
+  <p id="text">This page uses the DOM.</p>
+
+  <div class="box">
+    JavaScript can change elements on the page.
+  </div>
+
+  <script>
+    const title = document.querySelector('#title');
+    const text = document.querySelector('#text');
+
+    title.textContent = 'Web Programming';
+    text.textContent = 'The DOM lets JavaScript change the page.';
+  </script>
+
+</body>
+</html>
