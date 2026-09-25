@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Topic 5</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      padding: 30px;
+    }
+
+    .box {
+      padding: 20px;
+      margin-bottom: 15px;
+      background-color: #f0fdfa;
+      border-radius: 8px;
+    }
+
+    button {
+      padding: 10px 18px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="box" class="box">Normal text</div>
+
+  <button id="change">Use innerHTML</button>
+
+  <script>
+    const box = document.querySelector('#box');
+
+    document.querySelector('#change').addEventListener('click', () => {
+      box.innerHTML = '<strong>Bold text</strong> and <em>italic text</em>';
+    });
+  </script>
+
+</body>
+</html>
