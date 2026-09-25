@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Topic 3</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      padding: 30px;
+    }
+
+    .item {
+      padding: 12px;
+      margin: 8px 0;
+      background-color: #f0fdfa;
+      border-radius: 8px;
+    }
+
+    button {
+      padding: 10px 18px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <h1 id="main-title">Topics</h1>
+
+  <div class="item">HTML</div>
+  <div class="item">CSS</div>
+  <div class="item">JavaScript</div>
+
+  <button id="change">Change Items</button>
+
+  <script>
+    const title = document.querySelector('#main-title');
+    const items = document.querySelectorAll('.item');
+
+    document.querySelector('#change').addEventListener('click', () => {
+      title.textContent = 'Web Programming';
+
+      items.forEach(item => {
+        item.style.color = '#0f766e';
+        item.style.fontWeight = 'bold';
+      });
+    });
+  </script>
+
+</body>
+</html>
