@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Week 4</title>
+  <title>Interactive Color Palette</title>
 
   <style>
     body {
@@ -11,63 +11,171 @@
       background-color: #f0fdfa;
       color: #1e293b;
       margin: 0;
+      padding: 40px 20px;
     }
 
     .container {
       max-width: 700px;
-      margin: 40px auto;
-      padding: 20px;
-    }
-
-    .card {
-      background-color: white;
-      padding: 30px;
-      border-radius: 12px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      margin: auto;
     }
 
     h1 {
       color: #0f766e;
+      text-align: center;
     }
 
-    h2 {
-      margin-top: 30px;
-      color: #334155;
+    .add-row {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 20px;
     }
 
-    a {
-      display: block;
-      color: #0f766e;
-      text-decoration: none;
-      padding: 10px 0;
+    input {
+      flex: 1;
+      padding: 10px;
+      border: 2px solid #cbd5e1;
+      border-radius: 8px;
+      font-size: 15px;
+    }
+
+    button {
+      padding: 10px 18px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      background-color: #0f766e;
+      color: white;
+      font-size: 15px;
+    }
+
+    .palette {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+    }
+
+    .color-box {
+      width: 180px;
+      height: 100px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: width 0.3s, height 0.3s;
+      cursor: pointer;
+      color: white;
       font-weight: bold;
     }
 
-    a:hover {
-      color: #14b8a6;
+    .color-box.expanded {
+      width: 220px;
+      height: 140px;
+    }
+
+    .hex {
+      display: none;
+    }
+
+    .expanded .hex {
+      display: block;
+    }
+
+    .info {
+      text-align: center;
+      color: #64748b;
+      margin-bottom: 20px;
     }
   </style>
 </head>
 <body>
 
   <div class="container">
-    <div class="card">
+    <h1>Interactive Color Palette</h1>
 
-      <h1>Week 4</h1>
+    <p class="info">Click a color to expand it. Double-click to remove it.</p>
 
-      <h2>Exercises</h2>
-
-      <a href="ex_1.html">Exercise 1</a>
-      <a href="ex_2.html">Exercise 2</a>
-      <a href="ex_3.html">Exercise 3</a>
-      <a href="ex_4.html">Exercise 4</a>
-
-      <h2>Assignment</h2>
-
-      <a href="interactive-color-palette.html">Interactive Color Palette</a>
-
+    <div class="add-row">
+      <input id="color-input" type="text" placeholder="#0f766e">
+      <button id="add-color">Add Color</button>
     </div>
+
+    <div id="palette" class="palette"></div>
   </div>
+
+  <script>
+    const palette = document.querySelector('#palette');
+    const input = document.querySelector('#color-input');
+    const addButton = document.querySelector('#add-color');
+
+    let colors = JSON.parse(localStorage.getItem('colors')) || [
+      '#ef4444',
+      '#f97316',
+      '#eab308',
+      '#22c55e',
+      '#3b82f6',
+      '#8b5cf6'
+    ];
+
+    function saveColors() {
+      localStorage.setItem('colors', JSON.stringify(colors));
+    }
+
+    function createColorBox(color) {
+      const box = document.createElement('div');
+      const hex = document.createElement('span');
+
+      box.className = 'color-box';
+      hex.className = 'hex';
+
+      box.style.backgroundColor = color;
+      hex.textContent = color;
+
+      box.appendChild(hex);
+      palette.appendChild(box);
+
+      box.addEventListener('click', () => {
+        box.classList.toggle('expanded');
+
+        if (box.classList.contains('expanded')) {
+          hex.textContent = color;
+        } else {
+          hex.textContent = '';
+        }
+      });
+
+      box.addEventListener('dblclick', () => {
+        const index = [...palette.children].indexOf(box);
+
+        if (index !== -1) {
+          colors.splice(index, 1);
+        }
+
+        box.remove();
+        saveColors();
+      });
+    }
+
+    function showColors() {
+      palette.textContent = '';
+
+      colors.forEach(color => {
+        createColorBox(color);
+      });
+    }
+
+    addButton.addEventListener('click', () => {
+      const color = input.value.trim();
+
+      if (/^#[0-9A-Fa-f]{6}$/.test(color)) {
+        colors.push(color);
+        createColorBox(color);
+        input.value = '';
+        saveColors();
+      }
+    });
+
+    showColors();
+  </script>
 
 </body>
 </html>
