@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Topic 11</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      padding: 30px;
+      max-width: 500px;
+      margin: auto;
+    }
+
+    li {
+      padding: 10px;
+      margin: 6px 0;
+      background-color: #f0fdfa;
+      border-radius: 8px;
+    }
+
+    button {
+      padding: 10px 18px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <button id="add">Add Item</button>
+
+  <ul id="list">
+    <li>HTML</li>
+  </ul>
+
+  <script>
+    const list = document.querySelector('#list');
+    const addButton = document.querySelector('#add');
+
+    addButton.addEventListener('click', () => {
+      const li = document.createElement('li');
+
+      li.textContent = 'New Item';
+      li.classList.add('item');
+
+      list.appendChild(li);
+    });
+  </script>
+
+</body>
+</html>
