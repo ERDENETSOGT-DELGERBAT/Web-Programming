@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>JavaScript Basics</title>
+</head>
+<body>
+
+  <h1>JavaScript Basics</h1>
+
+  <p id="message">Original text</p>
+  <button onclick="changeText()">Change Text</button>
+
+  <h2>Greeting</h2>
+  <input type="text" id="nameInput" placeholder="Your name">
+  <button onclick="greet()">Greet</button>
+  <p id="output"></p>
+
+  <h2>Condition</h2>
+  <p id="grade"></p>
+
+  <h2>Loop</h2>
+  <p id="loop"></p>
+
+  <script>
+    let name = 'DELGERBAT';
+    const MAX = 100;
+
+    console.log(name);
+    alert('Hello, ' + name);
+
+    function changeText() {
+      let el = document.getElementById('message');
+      el.textContent = 'Text was changed!';
+      el.style.color = 'red';
+    }
+
+    function greet() {
+      let name = document.getElementById('nameInput').value;
+      document.getElementById('output').textContent = 'Hello, ' + name + '!';
+    }
+
+    let score = 75;
+
+    if (score >= 90) {
+      document.getElementById('grade').textContent = 'A';
+    } else if (score >= 80) {
+      document.getElementById('grade').textContent = 'B';
+    } else if (score >= 70) {
+      document.getElementById('grade').textContent = 'C';
+    } else {
+      document.getElementById('grade').textContent = 'F';
+    }
+
+    let result = '';
+
+    for (let i = 1; i <= 5; i++) {
+      result += 'Step ' + i + '<br>';
+    }
+
+    document.getElementById('loop').innerHTML = result;
+  </script>
+
+</body>
+</html>
