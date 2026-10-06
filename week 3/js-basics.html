@@ -3,31 +3,114 @@
 <head>
   <meta charset="UTF-8">
   <title>JavaScript Basics</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f1f5f9;
+      color: #1e293b;
+      margin: 0;
+      padding: 30px;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: auto;
+    }
+
+    h1 {
+      color: #0f766e;
+      margin-bottom: 5px;
+    }
+
+    .description {
+      color: #475569;
+      margin-bottom: 25px;
+    }
+
+    .section {
+      background-color: white;
+      padding: 20px;
+      margin-bottom: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    }
+
+    h2 {
+      color: #0f766e;
+      margin-top: 0;
+    }
+
+    button {
+      padding: 8px 14px;
+      border: none;
+      border-radius: 6px;
+      background-color: #0f766e;
+      color: white;
+      cursor: pointer;
+    }
+
+    input {
+      padding: 8px;
+      width: 200px;
+      margin-right: 5px;
+    }
+
+    .result {
+      margin-top: 12px;
+      padding: 10px;
+      background-color: #f8fafc;
+      border-radius: 6px;
+    }
+  </style>
 </head>
+
 <body>
 
-  <h1>JavaScript Basics</h1>
+  <div class="container">
 
-  <p id="message">Original text</p>
-  <button onclick="changeText()">Change Text</button>
+    <h1>JavaScript Basics</h1>
+    <p class="description">
+      Basic JavaScript examples for variables, user input, conditions, and loops.
+    </p>
 
-  <h2>Greeting</h2>
-  <input type="text" id="nameInput" placeholder="Your name">
-  <button onclick="greet()">Greet</button>
-  <p id="output"></p>
+    <div class="section">
+      <h2>Changing Page Content</h2>
+      <p id="message">Original text</p>
+      <button onclick="changeText()">Change Text</button>
+    </div>
 
-  <h2>Condition</h2>
-  <p id="grade"></p>
+    <div class="section">
+      <h2>Reading User Input</h2>
+      <input type="text" id="nameInput" placeholder="Your name">
+      <button onclick="greet()">Greet</button>
+      <p id="output" class="result"></p>
+    </div>
 
-  <h2>Loop</h2>
-  <p id="loop"></p>
+    <div class="section">
+      <h2>Condition (if / else)</h2>
+      <p>Score: 75</p>
+      <p id="grade" class="result"></p>
+    </div>
+
+    <div class="section">
+      <h2>Loop (for)</h2>
+      <p>The loop runs 5 times:</p>
+      <div id="loop" class="result"></div>
+    </div>
+
+    <div class="section">
+      <h2>Saving Data with localStorage</h2>
+      <p id="savedName" class="result"></p>
+    </div>
+
+  </div>
 
   <script>
     let name = 'DELGERBAT';
     const MAX = 100;
 
     console.log(name);
-    alert('Hello, ' + name);
 
     function changeText() {
       let el = document.getElementById('message');
@@ -43,13 +126,13 @@
     let score = 75;
 
     if (score >= 90) {
-      document.getElementById('grade').textContent = 'A';
+      document.getElementById('grade').textContent = 'Grade: A';
     } else if (score >= 80) {
-      document.getElementById('grade').textContent = 'B';
+      document.getElementById('grade').textContent = 'Grade: B';
     } else if (score >= 70) {
-      document.getElementById('grade').textContent = 'C';
+      document.getElementById('grade').textContent = 'Grade: C';
     } else {
-      document.getElementById('grade').textContent = 'F';
+      document.getElementById('grade').textContent = 'Grade: F';
     }
 
     let result = '';
@@ -59,6 +142,12 @@
     }
 
     document.getElementById('loop').innerHTML = result;
+
+    localStorage.setItem('username', 'DELGERBAT');
+
+    let saved = localStorage.getItem('username');
+
+    document.getElementById('savedName').textContent = 'Saved name: ' + saved;
   </script>
 
 </body>
