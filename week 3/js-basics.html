@@ -35,10 +35,6 @@
     button {
       padding: 6px 10px;
     }
-
-    p {
-      margin: 8px 0;
-    }
   </style>
 </head>
 
@@ -154,12 +150,28 @@
 
     if (savedScore !== null) {
       document.getElementById('scoreInput').value = savedScore;
-      checkScore();
+
+      if (savedScore >= 90) {
+        document.getElementById('grade').textContent = 'Grade: A';
+      } else if (savedScore >= 80) {
+        document.getElementById('grade').textContent = 'Grade: B';
+      } else if (savedScore >= 70) {
+        document.getElementById('grade').textContent = 'Grade: C';
+      } else {
+        document.getElementById('grade').textContent = 'Grade: F';
+      }
     }
 
     if (savedLoopNumber !== null) {
       document.getElementById('loopInput').value = savedLoopNumber;
-      runLoop();
+
+      let savedResult = '';
+
+      for (let i = 1; i <= savedLoopNumber; i++) {
+        savedResult += 'Step ' + i + '<br>';
+      }
+
+      document.getElementById('loop').innerHTML = savedResult;
     }
 
     localStorage.setItem('username', 'DELGERBAT');
