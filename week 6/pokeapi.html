@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PokéAPI</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f5f5f5;
+      max-width: 700px;
+      margin: auto;
+      padding: 25px;
+    }
+
+    section {
+      background-color: white;
+      padding: 20px;
+      border: 1px solid #ddd;
+    }
+
+    h1 {
+      color: #0f766e;
+    }
+
+    button {
+      padding: 8px 12px;
+      cursor: pointer;
+    }
+
+    img {
+      width: 120px;
+    }
+
+    a {
+      color: #0f766e;
+    }
+  </style>
+</head>
+
+<body>
+
+  <h1>PokéAPI</h1>
+  <p>Load information about Pikachu.</p>
+
+  <section>
+    <button onclick="loadPokemon()">Load Pokémon</button>
+    <p id="status"></p>
+    <div id="pokemon"></div>
+  </section>
+
+  <p><a href="index.html">Back to Week 6</a></p>
+
+  <script>
+    async function loadPokemon() {
+      let output = document.getElementById('pokemon');
+      document.getElementById('status').textContent = 'Loading...';
+      output.textContent = '';
+
+      try {
+        const res = await fetch(
+          'https://pokeapi.co/api/v2/pokemon/pikachu'
+        );
+
+        if (!res.ok) {
+          throw new Error('Request failed');
+        }
+
+        const data = await res.json();
+
+        let image = document.createElement('img');
+        image.src = data.sprites.front_default;
+        image.alt = data.name;
+
+        let name = document.createElement('p');
+        name.textContent = 'Name: ' + data.name;
+
+        let height = document.createElement('p');
+        height.textContent = 'Height: ' + data.height / 10 + ' m';
+
+        let weight = document.createElement('p');
+        weight.textContent = 'Weight: ' + data.weight / 10 + ' kg';
+
+        let types = document.createElement('p');
+        types.textContent = 'Type: ' +
+          data.types.map(item => item.type.name).join(', ');
+
+        output.appendChild(image);
+        output.appendChild(name);
+        output.appendChild(height);
+        output.appendChild(weight);
+        output.appendChild(types);
+
+        document.getElementById('status').textContent = 'Pokémon loaded!';
+      } catch (error) {
+        document.getElementById('status').textContent =
+          'Could not load Pokémon. Please try again.';
+      }
+    }
+  </script>
+
+</body>
+</html>
