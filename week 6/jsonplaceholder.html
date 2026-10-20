@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JSONPlaceholder</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f5f5f5;
+      max-width: 700px;
+      margin: auto;
+      padding: 25px;
+    }
+
+    section {
+      background-color: white;
+      padding: 20px;
+      border: 1px solid #ddd;
+    }
+
+    h1, h2 {
+      color: #0f766e;
+    }
+
+    button {
+      padding: 8px 12px;
+      cursor: pointer;
+    }
+
+    article {
+      border-bottom: 1px solid #ddd;
+      padding: 10px 0;
+    }
+
+    a {
+      color: #0f766e;
+    }
+  </style>
+</head>
+
+<body>
+
+  <h1>JSONPlaceholder</h1>
+  <p>Load sample blog posts using fetch().</p>
+
+  <button onclick="loadPosts()">Load Posts</button>
+  <p id="status"></p>
+  <div id="posts"></div>
+
+  <p><a href="index.html">Back to Week 6</a></p>
+
+  <script>
+    async function loadPosts() {
+      let output = document.getElementById('posts');
+      document.getElementById('status').textContent = 'Loading...';
+      output.textContent = '';
+
+      try {
+        const res = await fetch(
+          'https://jsonplaceholder.typicode.com/posts?_limit=5'
+        );
+
+        if (!res.ok) {
+          throw new Error('Request failed');
+        }
+
+        const posts = await res.json();
+
+        for (let post of posts) {
+          let article = document.createElement('article');
+          let title = document.createElement('h2');
+          let body = document.createElement('p');
+
+          title.textContent = post.title;
+          body.textContent = post.body;
+
+          article.appendChild(title);
+          article.appendChild(body);
+          output.appendChild(article);
+        }
+
+        document.getElementById('status').textContent = 'Posts loaded!';
+      } catch (error) {
+        document.getElementById('status').textContent =
+          'Could not load posts. Please try again.';
+      }
+    }
+  </script>
+
+</body>
+</html>
