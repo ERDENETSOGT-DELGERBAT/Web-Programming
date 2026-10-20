@@ -3,14 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>PokéAPI</title>
+  <title>REST Countries</title>
 
   <style>
     body {
       font-family: Arial, sans-serif;
       background: #f5f5f5;
       color: #1e293b;
-      max-width: 750px;
+      max-width: 1000px;
       margin: auto;
       padding: 25px;
     }
@@ -18,17 +18,16 @@
     section {
       background: white;
       padding: 18px;
-      margin-bottom: 15px;
       border: 1px solid #ddd;
       border-radius: 8px;
     }
 
-    h1, h2 {
+    h1 {
       color: #0f766e;
     }
 
-    button, input {
-      padding: 8px;
+    input, select, button {
+      padding: 9px;
       margin: 4px;
     }
 
@@ -36,21 +35,29 @@
       cursor: pointer;
     }
 
-    img {
-      width: 180px;
-      height: 180px;
-      object-fit: contain;
+    .table-container {
+      overflow-x: auto;
     }
 
     table {
       width: 100%;
       border-collapse: collapse;
+      background: white;
+      margin-top: 15px;
     }
 
     th, td {
-      padding: 8px;
+      padding: 10px;
       border: 1px solid #ddd;
       text-align: left;
+    }
+
+    th {
+      background: #e2e8f0;
+    }
+
+    img {
+      width: 45px;
     }
 
     a {
@@ -61,149 +68,132 @@
 
 <body>
 
-  <h1>PokéAPI</h1>
-  <p>Search the Pokémon database by name or Pokédex number.</p>
+  <h1>REST Countries</h1>
+  <p>Explore country flags, capitals, regions and populations.</p>
 
   <section>
-    <input type="text" id="pokemonInput" placeholder="Pikachu or 25">
-    <button onclick="searchPokemon()">Search</button>
-    <button onclick="randomPokemon()">Random Pokémon</button>
+    <input
+      type="text"
+      id="search"
+      placeholder="Search country or capital"
+      oninput="showCountries()"
+    >
 
-    <p id="status"></p>
-  </section>
+    <select id="region" onchange="showCountries()">
+      <option value="">All regions</option>
+      <option value="Africa">Africa</option>
+      <option value="Americas">Americas</option>
+      <option value="Asia">Asia</option>
+      <option value="Europe">Europe</option>
+      <option value="Oceania">Oceania</option>
+      <option value="Antarctic">Antarctic</option>
+    </select>
 
-  <section id="details" hidden>
-    <h2 id="name"></h2>
-    <img id="sprite" alt="Pokémon image">
+    <button onclick="loadCountries()">Reload Countries</button>
 
-    <p id="types"></p>
-    <p id="height"></p>
-    <p id="weight"></p>
-    <p id="abilities"></p>
+    <p id="status">Loading country data...</p>
 
-    <h2>Base Stats</h2>
-
-    <table>
-      <thead>
-        <tr>
-          <th>Stat</th>
-          <th>Value</th>
-        </tr>
-      </thead>
-      <tbody id="stats"></tbody>
-    </table>
+    <div class="table-container">
+      <table>
+        <thead>
+          <tr>
+            <th>Flag</th>
+            <th>Country</th>
+            <th>Capital</th>
+            <th>Region</th>
+            <th>Population</th>
+          </tr>
+        </thead>
+        <tbody id="countries"></tbody>
+      </table>
+    </div>
   </section>
 
   <p><a href="index.html">Back to Week 6</a></p>
 
   <script>
-    async function searchPokemon() {
-      let value = document.getElementById('pokemonInput').value.trim().toLowerCase();
+    let countries = [];
 
-      if (value === '') {
-        document.getElementById('status').textContent =
-          'Enter a Pokémon name or number.';
-        return;
-      }
+    async function loadCountries() {
+      document.getElementById('status').textContent =
+        'Loading countries...';
 
-      await loadPokemon(value);
-    }
-
-    async function loadPokemon(value) {
-      let status = document.getElementById('status');
-      let details = document.getElementById('details');
-
-      status.textContent = 'Loading Pokémon...';
-      details.hidden = true;
+      document.getElementById('countries').textContent = '';
 
       try {
         const res = await fetch(
-          'https://pokeapi.co/api/v2/pokemon/' + encodeURIComponent(value)
-        );
-
-        if (!res.ok) {
-          throw new Error('Pokémon not found');
-        }
-
-        const data = await res.json();
-
-        document.getElementById('name').textContent =
-          '#' + data.id + ' ' +
-          data.name.charAt(0).toUpperCase() + data.name.slice(1);
-
-        let sprite = data.sprites.other['official-artwork'].front_default
-          || data.sprites.front_default;
-
-        document.getElementById('sprite').src = sprite || '';
-        document.getElementById('types').textContent =
-          'Types: ' + data.types.map(item => item.type.name).join(', ');
-
-        document.getElementById('height').textContent =
-          'Height: ' + data.height / 10 + ' m';
-
-        document.getElementById('weight').textContent =
-          'Weight: ' + data.weight / 10 + ' kg';
-
-        document.getElementById('abilities').textContent =
-          'Abilities: ' + data.abilities
-            .map(item => item.ability.name)
-            .join(', ');
-
-        let stats = document.getElementById('stats');
-        stats.textContent = '';
-
-        for (let item of data.stats) {
-          let row = document.createElement('tr');
-          let statName = document.createElement('td');
-          let statValue = document.createElement('td');
-
-          statName.textContent = item.stat.name;
-          statValue.textContent = item.base_stat;
-
-          row.appendChild(statName);
-          row.appendChild(statValue);
-          stats.appendChild(row);
-        }
-
-        status.textContent = 'Pokémon loaded!';
-        details.hidden = false;
-      } catch (error) {
-        status.textContent =
-          'Pokémon not found or the API is unavailable. Try another name or number.';
-      }
-    }
-
-    async function randomPokemon() {
-      let status = document.getElementById('status');
-      status.textContent = 'Finding a random Pokémon...';
-
-      try {
-        const res = await fetch(
-          'https://pokeapi.co/api/v2/pokemon?limit=1'
+          'https://restcountries.com/v3.1/all?fields=name,capital,population,flags,region,cca2'
         );
 
         if (!res.ok) {
           throw new Error('Request failed');
         }
 
-        const data = await res.json();
-        let id = Math.floor(Math.random() * data.count) + 1;
+        countries = await res.json();
 
-        document.getElementById('pokemonInput').value = id;
-        await loadPokemon(id);
+        countries.sort((a, b) =>
+          a.name.common.localeCompare(b.name.common)
+        );
+
+        showCountries();
       } catch (error) {
-        status.textContent =
-          'Could not get a random Pokémon. Please try again.';
+        document.getElementById('status').textContent =
+          'Could not load countries. Please try again.';
       }
     }
 
-    document.getElementById('pokemonInput').addEventListener('keydown', event => {
-      if (event.key === 'Enter') {
-        searchPokemon();
-      }
-    });
+    function showCountries() {
+      let search = document.getElementById('search').value.toLowerCase();
+      let region = document.getElementById('region').value;
+      let table = document.getElementById('countries');
 
-    loadPokemon('pikachu');
+      table.textContent = '';
+
+      let filtered = countries.filter(country => {
+        let name = country.name.common.toLowerCase();
+        let capital = country.capital
+          ? country.capital.join(' ').toLowerCase()
+          : '';
+
+        return (name.includes(search) || capital.includes(search)) &&
+          (region === '' || country.region === region);
+      });
+
+      document.getElementById('status').textContent =
+        'Showing ' + filtered.length + ' of ' + countries.length + ' countries.';
+
+      for (let country of filtered) {
+        let row = document.createElement('tr');
+        let flagCell = document.createElement('td');
+        let nameCell = document.createElement('td');
+        let capitalCell = document.createElement('td');
+        let regionCell = document.createElement('td');
+        let populationCell = document.createElement('td');
+
+        let flag = document.createElement('img');
+        flag.src = country.flags.png;
+        flag.alt = country.name.common + ' flag';
+
+        flagCell.appendChild(flag);
+        nameCell.textContent = country.name.common;
+        capitalCell.textContent = country.capital
+          ? country.capital.join(', ')
+          : 'Not available';
+        regionCell.textContent = country.region || 'Not available';
+        populationCell.textContent =
+          country.population.toLocaleString();
+
+        row.appendChild(flagCell);
+        row.appendChild(nameCell);
+        row.appendChild(capitalCell);
+        row.appendChild(regionCell);
+        row.appendChild(populationCell);
+
+        table.appendChild(row);
+      }
+    }
+
+    loadCountries();
   </script>
 
 </body>
