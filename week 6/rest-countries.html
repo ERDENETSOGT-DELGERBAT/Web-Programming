@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>REST Countries</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f5f5f5;
+      max-width: 700px;
+      margin: auto;
+      padding: 25px;
+    }
+
+    section {
+      background-color: white;
+      padding: 20px;
+      margin-bottom: 15px;
+      border: 1px solid #ddd;
+    }
+
+    h1, h2 {
+      color: #0f766e;
+    }
+
+    button {
+      padding: 8px 12px;
+      cursor: pointer;
+    }
+
+    img {
+      width: 120px;
+    }
+
+    a {
+      color: #0f766e;
+    }
+  </style>
+</head>
+
+<body>
+
+  <h1>REST Countries</h1>
+  <p>Find country information for Korea.</p>
+
+  <button onclick="loadCountry()">Load Country</button>
+  <p id="status"></p>
+  <div id="country"></div>
+
+  <p><a href="index.html">Back to Week 6</a></p>
+
+  <script>
+    async function loadCountry() {
+      let output = document.getElementById('country');
+      document.getElementById('status').textContent = 'Loading...';
+      output.textContent = '';
+
+      try {
+        const res = await fetch(
+          'https://restcountries.com/v3.1/name/korea'
+        );
+
+        if (!res.ok) {
+          throw new Error('Request failed');
+        }
+
+        const data = await res.json();
+
+        for (let country of data) {
+          let section = document.createElement('section');
+          let name = document.createElement('h2');
+          let flag = document.createElement('img');
+          let capital = document.createElement('p');
+          let population = document.createElement('p');
+
+          name.textContent = country.name.common;
+          flag.src = country.flags.png;
+          flag.alt = country.name.common + ' flag';
+          capital.textContent = 'Capital: ' +
+            (country.capital ? country.capital[0] : 'Not available');
+          population.textContent =
+            'Population: ' + country.population.toLocaleString();
+
+          section.appendChild(name);
+          section.appendChild(flag);
+          section.appendChild(capital);
+          section.appendChild(population);
+          output.appendChild(section);
+        }
+
+        document.getElementById('status').textContent = 'Country data loaded!';
+      } catch (error) {
+        document.getElementById('status').textContent =
+          'Could not load country data. Please try again.';
+      }
+    }
+  </script>
+
+</body>
+</html>
