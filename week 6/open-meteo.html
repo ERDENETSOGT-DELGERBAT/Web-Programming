@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Open-Meteo Weather</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f5f5f5;
+      max-width: 700px;
+      margin: auto;
+      padding: 25px;
+    }
+
+    section {
+      background-color: white;
+      padding: 20px;
+      border: 1px solid #ddd;
+    }
+
+    h1 {
+      color: #0f766e;
+    }
+
+    button {
+      padding: 8px 12px;
+      cursor: pointer;
+    }
+
+    a {
+      color: #0f766e;
+    }
+  </style>
+</head>
+
+<body>
+
+  <h1>Open-Meteo</h1>
+  <p>Current weather in Seoul.</p>
+
+  <section>
+    <button onclick="loadWeather()">Load Weather</button>
+    <p id="status"></p>
+    <div id="weather"></div>
+  </section>
+
+  <p><a href="index.html">Back to Week 6</a></p>
+
+  <script>
+    async function loadWeather() {
+      let output = document.getElementById('weather');
+      document.getElementById('status').textContent = 'Loading...';
+      output.textContent = '';
+
+      try {
+        const res = await fetch(
+          'https://api.open-meteo.com/v1/forecast?latitude=37.5665&longitude=126.9780&current=temperature_2m,relative_humidity_2m,apparent_temperature&timezone=Asia%2FSeoul'
+        );
+
+        if (!res.ok) {
+          throw new Error('Request failed');
+        }
+
+        const data = await res.json();
+
+        document.getElementById('status').textContent = 'Weather loaded!';
+
+        let temperature = document.createElement('p');
+        temperature.textContent =
+          'Temperature: ' + data.current.temperature_2m +
+          data.current_units.temperature_2m;
+
+        let feelsLike = document.createElement('p');
+        feelsLike.textContent =
+          'Feels like: ' + data.current.apparent_temperature +
+          data.current_units.temperature_2m;
+
+        let humidity = document.createElement('p');
+        humidity.textContent =
+          'Humidity: ' + data.current.relative_humidity_2m + '%';
+
+        output.appendChild(temperature);
+        output.appendChild(feelsLike);
+        output.appendChild(humidity);
+      } catch (error) {
+        document.getElementById('status').textContent =
+          'Could not load weather. Please try again.';
+      }
+    }
+  </script>
+
+</body>
+</html>
