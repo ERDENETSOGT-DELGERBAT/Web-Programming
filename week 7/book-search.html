@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Book Search</title>
+
+  <style>
+    :root {
+      --dark: #1a2540;
+      --accent: #1a56db;
+      --bg: #f0f4ff;
+      --surf: #ffffff;
+      --border: #c8d4f0;
+      --text: #1a2340;
+      --muted: #5a6a8a;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Inter, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+    }
+
+    header {
+      background: var(--dark);
+      color: white;
+      text-align: center;
+      padding: 30px 20px;
+    }
+
+    header h1 {
+      margin: 0;
+    }
+
+    header p {
+      color: #94a3b8;
+      margin-bottom: 0;
+    }
+
+    #search-section {
+      max-width: 620px;
+      margin: 30px auto;
+      padding: 0 20px;
+    }
+
+    form {
+      display: flex;
+      gap: 10px;
+    }
+
+    input {
+      flex: 1;
+      min-width: 0;
+      padding: 12px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-size: 16px;
+    }
+
+    button {
+      padding: 12px 22px;
+      border: none;
+      border-radius: 8px;
+      background: var(--accent);
+      color: white;
+      font-size: 15px;
+      cursor: pointer;
+    }
+
+    button:hover:not(:disabled) {
+      background: #1447b3;
+    }
+
+    button:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    #results-section {
+      max-width: 1050px;
+      margin: auto;
+      padding: 0 20px 40px;
+    }
+
+    #status {
+      color: var(--muted);
+      font-size: 14px;
+      margin-bottom: 18px;
+    }
+
+    #status.error {
+      color: #dc2626;
+    }
+
+    #status.empty {
+      color: #92400e;
+    }
+
+    #results-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(165px, 1fr));
+      gap: 18px;
+    }
+
+    .book-card {
+      background: var(--surf);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      overflow: hidden;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .book-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(26, 37, 64, 0.12);
+    }
+
+    .book-cover {
+      width: 100%;
+      aspect-ratio: 2 / 3;
+      object-fit: cover;
+      display: block;
+      background: #e2e8f0;
+    }
+
+    .no-cover {
+      aspect-ratio: 2 / 3;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #e2e8f0;
+      font-size: 36px;
+    }
+
+    .card-info {
+      padding: 12px;
+    }
+
+    .card-info h3 {
+      font-size: 14px;
+      line-height: 1.4;
+      margin: 0;
+      overflow-wrap: anywhere;
+    }
+
+    .card-info p {
+      font-size: 12px;
+      color: var(--muted);
+      margin: 7px 0 0;
+    }
+
+    .skeleton {
+      background: #e2e8f0;
+      border-radius: 10px;
+      aspect-ratio: 2 / 3;
+      animation: loading 1.2s infinite alternate;
+    }
+
+    @keyframes loading {
+      from {
+        opacity: 0.4;
+      }
+
+      to {
+        opacity: 1;
+      }
+    }
+
+    .spinner {
+      display: inline-block;
+      width: 14px;
+      height: 14px;
+      border: 2px solid #ffffff80;
+      border-top-color: white;
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+      vertical-align: middle;
+      margin-right: 6px;
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    @media (max-width: 480px) {
+      form {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <h1>📚 Book Search</h1>
+    <p>Find books using the Open Library API</p>
+  </header>
+
+  <main>
+    <section id="search-section">
+      <form id="search-form">
+        <input
+          type="text"
+          id="search-input"
+          placeholder="Search by title or author..."
+          required
+        >
+        <button type="submit" id="search-btn">Search</button>
+      </form>
+    </section>
+
+    <section id="results-section">
+      <h2>Search Results</h2>
+      <p id="status">Enter a book title or author to get started.</p>
+      <div id="results-grid"></div>
+    </section>
+  </main>
+
+  <script>
+    const form = document.getElementById('search-form');
+    const input = document.getElementById('search-input');
+    const status = document.getElementById('status');
+    const grid = document.getElementById('results-grid');
+    const button = document.getElementById('search-btn');
+
+    function setStatus(message, type) {
+      status.textContent = message;
+      status.className = type;
+    }
+
+    function showLoading() {
+      grid.textContent = '';
+
+      for (let i = 0; i < 6; i++) {
+        let card = document.createElement('div');
+        card.className = 'skeleton';
+        grid.appendChild(card);
+      }
+    }
+
+    function renderBooks(books) {
+      grid.textContent = '';
+
+      for (let book of books) {
+        let card = document.createElement('article');
+        card.className = 'book-card';
+
+        if (book.cover_i) {
+          let cover = document.createElement('img');
+          cover.className = 'book-cover';
+          cover.src =
+            'https://covers.openlibrary.org/b/id/' +
+            book.cover_i + '-M.jpg';
+          cover.alt = 'Cover of ' + (book.title || 'book');
+          cover.loading = 'lazy';
+
+          card.appendChild(cover);
+        } else {
+          let cover = document.createElement('div');
+          cover.className = 'no-cover';
+          cover.textContent = '📚';
+          card.appendChild(cover);
+        }
+
+        let info = document.createElement('div');
+        info.className = 'card-info';
+
+        let title = document.createElement('h3');
+        title.textContent = book.title || 'Unknown title';
+
+        let author = document.createElement('p');
+        author.textContent = book.author_name
+          ? book.author_name[0]
+          : 'Unknown author';
+
+        let year = document.createElement('p');
+        year.textContent = book.first_publish_year
+          ? 'First published: ' + book.first_publish_year
+          : 'Publication year unavailable';
+
+        info.appendChild(title);
+        info.appendChild(author);
+        info.appendChild(year);
+
+        card.appendChild(info);
+        grid.appendChild(card);
+      }
+    }
+
+    async function searchBooks(query) {
+      button.disabled = true;
+      button.innerHTML = '<span class="spinner"></span>Searching';
+      setStatus('Searching Open Library...', 'info');
+      showLoading();
+
+      try {
+        const url =
+          'https://openlibrary.org/search.json?q=' +
+          encodeURIComponent(query) +
+          '&limit=12';
+
+        const res = await fetch(url);
+
+        if (!res.ok) {
+          throw new Error('Request failed');
+        }
+
+        const data = await res.json();
+
+        console.log('Results found:', data.numFound);
+
+        if (data.docs.length === 0) {
+          grid.textContent = '';
+          setStatus('No books found. Try another search.', 'empty');
+          return;
+        }
+
+        renderBooks(data.docs);
+
+        setStatus(
+          'Showing ' + data.docs.length + ' books for "' + query + '".',
+          'info'
+        );
+      } catch (error) {
+        grid.textContent = '';
+        setStatus(
+          'Could not load books. Check your connection and try again.',
+          'error'
+        );
+      } finally {
+        button.disabled = false;
+        button.textContent = 'Search';
+      }
+    }
+
+    form.addEventListener('submit', function(event) {
+      event.preventDefault();
+
+      const query = input.value.trim();
+
+      if (query !== '') {
+        console.log('Search query:', query);
+        searchBooks(query);
+      }
+    });
+  </script>
+
+</body>
+</html>
