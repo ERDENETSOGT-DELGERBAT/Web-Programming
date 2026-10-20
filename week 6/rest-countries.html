@@ -41,18 +41,9 @@
       cursor: pointer;
     }
 
-    .country {
-      background: white;
-      padding: 18px;
-      margin-top: 15px;
-      border: 1px solid #ddd;
-      border-radius: 8px;
-    }
-
     .flag {
       max-width: 180px;
       max-height: 120px;
-      object-fit: contain;
     }
 
     .detail {
@@ -69,13 +60,13 @@
 <body>
 
   <h1>REST Countries</h1>
-  <p>Search a country to explore its flag, capital and population.</p>
+  <p>Search for a country to explore its flag, capital and population.</p>
 
   <section>
     <input
       type="text"
       id="countryInput"
-      value="South Korea"
+      value="Mongolia"
       placeholder="Enter a country name"
     >
     <button onclick="searchCountry()">Search</button>
@@ -89,79 +80,124 @@
   <script>
     async function searchCountry() {
       let name = document.getElementById('countryInput').value.trim();
+      let status = document.getElementById('status');
       let output = document.getElementById('results');
 
       output.textContent = '';
 
       if (name === '') {
-        document.getElementById('status').textContent =
-          'Please enter a country name.';
+        status.textContent = 'Please enter a country name.';
         return;
       }
 
-      document.getElementById('status').textContent = 'Searching...';
+      status.textContent = 'Searching...';
 
       try {
+        let query = name;
+
+        if (name.toLowerCase() === 'south korea') {
+          query = 'Korea';
+        }
+
+        if (name.toLowerCase() === 'north korea') {
+          query = 'Korea';
+        }
+
         const res = await fetch(
-          'https://restcountries.com/v3.1/name/' +
-          encodeURIComponent(name) +
-          '?fields=name,capital,population,flags,region,area,languages,currencies'
+          'https://countries.dev/name/' + encodeURIComponent(query)
         );
 
         if (!res.ok) {
           throw new Error('Country not found');
         }
 
-        const countries = await res.json();
+        let data = await res.json();
 
-        document.getElementById('status').textContent =
-          countries.length + ' matching result(s).';
+        if (!Array.isArray(data)) {
+          throw new Error('Invalid response');
+        }
 
-        for (let country of countries) {
-          let card = document.createElement('div');
-          card.className = 'country';
+        if (name.toLowerCase() === 'south korea') {
+          data = data.filter(country => country.alpha2Code === 'KR');
+        }
+
+        if (name.toLowerCase() === 'north korea') {
+          data = data.filter(country => country.alpha2Code === 'KP');
+        }
+
+        if (data.length === 0) {
+          throw new Error('Country not found');
+        }
+
+        status.textContent = data.length + ' result(s) found.';
+
+        for (let country of data) {
+          let card = document.createElement('section');
 
           let title = document.createElement('h2');
-          title.textContent = country.name.common;
+          title.textContent = country.name;
 
           let flag = document.createElement('img');
           flag.className = 'flag';
-          flag.src = country.flags.png;
-          flag.alt = country.name.common + ' flag';
+          flag.alt = country.name + ' flag';
 
-          let details = [
-            ['Official name', country.name.official],
-            ['Capital', country.capital ? country.capital.join(', ') : 'Not available'],
-            ['Population', country.population.toLocaleString()],
-            ['Region', country.region || 'Not available'],
-            ['Area', country.area ? country.area.toLocaleString() + ' km²' : 'Not available'],
-            ['Languages', country.languages ? Object.values(country.languages).join(', ') : 'Not available'],
-            ['Currency', country.currencies ? Object.values(country.currencies).map(item => item.name).join(', ') : 'Not available']
-          ];
+          if (country.flags && country.flags.png) {
+            flag.src = country.flags.png;
+          } else if (country.flags && country.flags.svg) {
+            flag.src = country.flags.svg;
+          } else {
+            flag.src = 'https://countries.dev/flags/' +
+              country.alpha2Code.toLowerCase() + '.svg';
+          }
+
+          let capital = document.createElement('p');
+          capital.className = 'detail';
+          capital.textContent = 'Capital: ' +
+            (country.capital || 'Not available');
+
+          let population = document.createElement('p');
+          population.className = 'detail';
+          population.textContent = 'Population: ' +
+            (country.population != null
+              ? country.population.toLocaleString()
+              : 'Not available');
+
+          let region = document.createElement('p');
+          region.className = 'detail';
+          region.textContent = 'Region: ' +
+            (country.region || 'Not available');
+
+          let area = document.createElement('p');
+          area.className = 'detail';
+          area.textContent = 'Area: ' +
+            (country.area != null
+              ? country.area.toLocaleString() + ' km²'
+              : 'Not available');
 
           card.appendChild(title);
           card.appendChild(flag);
-
-          for (let item of details) {
-            let row = document.createElement('p');
-            row.className = 'detail';
-            row.textContent = item[0] + ': ' + item[1];
-            card.appendChild(row);
-          }
+          card.appendChild(capital);
+          card.appendChild(population);
+          card.appendChild(region);
+          card.appendChild(area);
 
           output.appendChild(card);
         }
+
       } catch (error) {
-        document.getElementById('status').textContent =
-          'Country not found or the service is unavailable. Try a name such as Mongolia, Japan or South Korea.';
+        status.textContent =
+          'Country not found or the service is unavailable. Please try another name.';
       }
     }
 
-    document.getElementById('countryInput').addEventListener('keydown', function (event) {
-      if (event.key === 'Enter') {
-        searchCountry();
+    document.getElementById('countryInput').addEventListener(
+      'keydown',
+      function(event) {
+        if (event.key === 'Enter') {
+          searchCountry();
+        }
       }
-    });
+    );
 
     searchCountry();
   </script>
