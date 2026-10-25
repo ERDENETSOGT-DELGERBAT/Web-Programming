@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Validation Styles</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 600px;
+      margin: 30px auto;
+      padding: 20px;
+      background: #f5f5f5;
+      color: #1e293b;
+    }
+
+    label {
+      display: block;
+      margin: 14px 0 5px;
+    }
+
+    input {
+      width: 100%;
+      box-sizing: border-box;
+      padding: 10px;
+      border: 1px solid #cbd5e1;
+      border-radius: 5px;
+      background: white;
+      outline: none;
+    }
+
+    input:focus {
+      border-color: #1a56db;
+      box-shadow: 0 0 0 3px rgba(26, 86, 219, 0.15);
+    }
+
+    input:valid:not(:placeholder-shown) {
+      border-color: #16a34a;
+      background: #f0fdf4;
+    }
+
+    input:invalid:not(:placeholder-shown) {
+      border-color: #dc2626;
+      background: #fef2f2;
+    }
+
+    button {
+      margin-top: 20px;
+      padding: 10px 18px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <h1>Validation Styles</h1>
+
+  <form method="post" action="#">
+
+    <label for="sid">Student ID</label>
+    <input
+      type="text"
+      id="sid"
+      name="student_id"
+      pattern="[0-9]{9}"
+      title="Enter exactly 9 digits"
+      placeholder="202112345"
+      required
+    >
+
+    <label for="email">Email</label>
+    <input
+      type="email"
+      id="email"
+      name="email"
+      placeholder="name@example.com"
+      required
+    >
+
+    <label for="password">Password</label>
+    <input
+      type="password"
+      id="password"
+      name="password"
+      minlength="8"
+      placeholder="At least 8 characters"
+      required
+    >
+
+    <button type="submit">Submit</button>
+
+  </form>
+
+</body>
+</html>
