@@ -46,11 +46,13 @@
       box-shadow: 0 2px 8px rgba(0,0,0,0.08);
     }
 
-    .materials {
+    .materials,
+    .contact-section {
       background-color: white;
       padding: 24px;
       border-radius: 12px;
       box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      margin-bottom: 24px;
     }
 
     a {
@@ -62,6 +64,77 @@
     a:hover {
       color: #14b8a6;
     }
+
+    .contact-section h2 {
+      color: #0f766e;
+    }
+
+    .contact-form label {
+      display: block;
+      margin: 14px 0 6px;
+      font-weight: bold;
+    }
+
+    .contact-form input,
+    .contact-form textarea {
+      width: 100%;
+      box-sizing: border-box;
+      padding: 10px;
+      border: 1px solid #cbd5e1;
+      border-radius: 5px;
+      font: inherit;
+    }
+
+    .contact-form textarea {
+      min-height: 120px;
+      resize: vertical;
+    }
+
+    .contact-form input:focus,
+    .contact-form textarea:focus {
+      outline: 2px solid #99f6e4;
+      border-color: #0f766e;
+    }
+
+    .contact-form input:valid:not(:placeholder-shown),
+    .contact-form textarea:valid:not(:placeholder-shown) {
+      border: 2px solid #16a34a;
+    }
+
+    .contact-form input:invalid:not(:placeholder-shown),
+    .contact-form textarea:invalid:not(:placeholder-shown) {
+      border: 2px solid #dc2626;
+    }
+
+    .contact-form button {
+      margin-top: 16px;
+      padding: 10px 22px;
+      background-color: #0f766e;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 15px;
+      cursor: pointer;
+    }
+
+    .contact-form button:hover {
+      background-color: #115e59;
+    }
+
+    #contact-status {
+      margin-top: 12px;
+      color: #0f766e;
+    }
+
+    @media (max-width: 600px) {
+      .info {
+        flex-direction: column;
+      }
+
+      header {
+        padding: 25px;
+      }
+    }
   </style>
 </head>
 
@@ -70,9 +143,7 @@
 
     <header>
       <h1>Web Programming</h1>
-      <p>
-        A collection of my Web Programming class work
-      </p>
+      <p>A collection of my Web Programming class work</p>
     </header>
 
     <div class="info">
@@ -102,8 +173,67 @@
       <p><a href="week%205/">Week 5</a></p>
       <p><a href="week%206/">Week 6</a></p>
       <p><a href="week%207/">Week 7</a></p>
+      <p><a href="week%208/">Week 8</a></p>
+    </section>
+
+    <section class="contact-section">
+      <h2>Contact Me</h2>
+
+      <form class="contact-form" id="contact-form" action="#" method="post">
+
+        <label for="contact-name">Name</label>
+        <input
+          type="text"
+          id="contact-name"
+          name="name"
+          placeholder="Your name"
+          minlength="2"
+          required
+        >
+
+        <label for="contact-email">Email</label>
+        <input
+          type="email"
+          id="contact-email"
+          name="email"
+          placeholder="you@example.com"
+          required
+        >
+
+        <label for="contact-subject">Subject</label>
+        <input
+          type="text"
+          id="contact-subject"
+          name="subject"
+          placeholder="Message subject"
+          minlength="3"
+          required
+        >
+
+        <label for="contact-message">Message</label>
+        <textarea
+          id="contact-message"
+          name="message"
+          placeholder="Write your message"
+          minlength="10"
+          required
+        ></textarea>
+
+        <button type="submit">Send Message</button>
+
+        <p id="contact-status"></p>
+      </form>
     </section>
 
   </div>
+
+  <script>
+    document.getElementById('contact-form').addEventListener('submit', function(event) {
+      event.preventDefault();
+
+      document.getElementById('contact-status').textContent =
+        'Your form is valid, but message delivery is not connected.';
+    });
+  </script>
 </body>
 </html>
