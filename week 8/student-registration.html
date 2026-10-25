@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Registration</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0fdfa;
+      color: #1e293b;
+      max-width: 700px;
+      margin: auto;
+      padding: 25px;
+    }
+
+    h1 {
+      color: #0f766e;
+    }
+
+    fieldset {
+      background-color: white;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      padding: 20px;
+      margin-bottom: 20px;
+    }
+
+    legend {
+      color: #0f766e;
+      font-weight: bold;
+      padding: 0 8px;
+    }
+
+    label {
+      display: block;
+      margin: 14px 0 6px;
+    }
+
+    input:not([type="checkbox"]):not([type="range"]),
+    select {
+      width: 100%;
+      box-sizing: border-box;
+      padding: 10px;
+      border: 1px solid #cbd5e1;
+      border-radius: 5px;
+      font: inherit;
+      background-color: white;
+    }
+
+    input[type="text"]:focus,
+    input[type="email"]:focus,
+    input[type="password"]:focus,
+    input[type="date"]:focus,
+    select:focus {
+      outline: 2px solid #99f6e4;
+      border-color: #0f766e;
+    }
+
+    input[type="text"]:valid:not(:placeholder-shown),
+    input[type="email"]:valid:not(:placeholder-shown),
+    input[type="password"]:valid:not(:placeholder-shown) {
+      border: 2px solid #16a34a;
+      background-color: #f0fdf4;
+    }
+
+    input[type="text"]:invalid:not(:placeholder-shown),
+    input[type="email"]:invalid:not(:placeholder-shown),
+    input[type="password"]:invalid:not(:placeholder-shown) {
+      border: 2px solid #dc2626;
+      background-color: #fef2f2;
+    }
+
+    select:valid {
+      border-color: #16a34a;
+    }
+
+    .terms {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin: 15px 0;
+    }
+
+    .terms label {
+      margin: 0;
+    }
+
+    input[type="checkbox"],
+    input[type="range"] {
+      accent-color: #0f766e;
+    }
+
+    button {
+      padding: 10px 20px;
+      background-color: #0f766e;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 15px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #115e59;
+    }
+
+    #experience-value {
+      color: #0f766e;
+      font-weight: bold;
+    }
+
+    #message {
+      margin-top: 15px;
+    }
+
+    a {
+      color: #0f766e;
+    }
+  </style>
+</head>
+
+<body>
+
+  <h1>Student Registration</h1>
+
+  <form id="registration-form" action="#" method="post">
+
+    <fieldset>
+      <legend>Personal Info</legend>
+
+      <label for="full-name">Full Name</label>
+      <input
+        type="text"
+        id="full-name"
+        name="fullName"
+        placeholder="Enter your full name"
+        required
+      >
+
+      <label for="student-id">Student ID</label>
+      <input
+        type="text"
+        id="student-id"
+        name="studentId"
+        pattern="[0-9]{9}"
+        placeholder="9-digit student ID"
+        title="Enter exactly 9 digits"
+        required
+      >
+
+      <label for="birth-date">Date of Birth</label>
+      <input
+        type="date"
+        id="birth-date"
+        name="dateOfBirth"
+      >
+
+      <label for="major">Major</label>
+      <select id="major" name="major" required>
+        <option value="" selected disabled>Select your major</option>
+        <option value="Computer Engineering">Computer Engineering</option>
+        <option value="Software">Software</option>
+        <option value="Business Administration">Business Administration</option>
+        <option value="Artificial Intelligence">Artificial Intelligence</option>
+        <option value="Electrical Engineering">Electrical Engineering</option>
+      </select>
+
+      <label for="experience">Years of Coding Experience</label>
+      <input
+        type="range"
+        id="experience"
+        name="experience"
+        min="0"
+        max="10"
+        value="0"
+      >
+      <span id="experience-value">0 years</span>
+    </fieldset>
+
+    <fieldset>
+      <legend>Account Info</legend>
+
+      <label for="email">Email</label>
+      <input
+        type="email"
+        id="email"
+        name="email"
+        placeholder="you@example.com"
+        required
+      >
+
+      <label for="password">Password</label>
+      <input
+        type="password"
+        id="password"
+        name="password"
+        minlength="8"
+        placeholder="At least 8 characters"
+        required
+      >
+
+      <label for="phone">Phone</label>
+      <input
+        type="text"
+        id="phone"
+        name="phone"
+        pattern="[0-9]{3}-[0-9]{4}-[0-9]{4}"
+        placeholder="010-1234-5678"
+        title="Use the format 010-1234-5678"
+      >
+    </fieldset>
+
+    <div class="terms">
+      <input type="checkbox" id="terms" name="terms" required>
+      <label for="terms">I agree to the terms</label>
+    </div>
+
+    <button type="submit">Register</button>
+
+    <p id="message"></p>
+  </form>
+
+  <p><a href="index.html">Back to Week 8</a></p>
+
+  <script>
+    const experience = document.getElementById('experience');
+    const experienceValue = document.getElementById('experience-value');
+
+    experience.addEventListener('input', function() {
+      experienceValue.textContent = experience.value + ' years';
+    });
+
+    document.getElementById('registration-form').addEventListener('submit', function(event) {
+      event.preventDefault();
+
+      document.getElementById('message').textContent =
+        'Form validation passed. No registration server is connected.';
+    });
+  </script>
+
+</body>
+</html>
