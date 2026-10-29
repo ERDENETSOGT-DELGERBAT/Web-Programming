@@ -146,84 +146,86 @@
       <p>A collection of my Web Programming class work</p>
     </header>
 
-    <div class="info">
-      <div>
-        <strong>Student</strong>
-        <p>DELGERBAT</p>
-        <p>Student ID: 202539430</p>
+    <main>
+      <div class="info">
+        <div>
+          <strong>Student</strong>
+          <p>DELGERBAT</p>
+          <p>Student ID: 202539430</p>
+        </div>
+
+        <div>
+          <strong>Major</strong>
+          <p>Computer Engineering</p>
+        </div>
+
+        <div>
+          <strong>University</strong>
+          <p>Gachon University</p>
+        </div>
       </div>
 
-      <div>
-        <strong>Major</strong>
-        <p>Computer Engineering</p>
-      </div>
+      <section class="materials">
+        <h2>Course Materials</h2>
 
-      <div>
-        <strong>University</strong>
-        <p>Gachon University</p>
-      </div>
-    </div>
+        <p><a href="week%202/">Week 2</a></p>
+        <p><a href="week%203/">Week 3</a></p>
+        <p><a href="week%204/">Week 4</a></p>
+        <p><a href="week%205/">Week 5</a></p>
+        <p><a href="week%206/">Week 6</a></p>
+        <p><a href="week%207/">Week 7</a></p>
+        <p><a href="week%208/">Week 8</a></p>
+      </section>
 
-    <section class="materials">
-      <h2>Course Materials</h2>
+      <section class="contact-section">
+        <h2>Contact Me</h2>
 
-      <p><a href="week%202/">Week 2</a></p>
-      <p><a href="week%203/">Week 3</a></p>
-      <p><a href="week%204/">Week 4</a></p>
-      <p><a href="week%205/">Week 5</a></p>
-      <p><a href="week%206/">Week 6</a></p>
-      <p><a href="week%207/">Week 7</a></p>
-      <p><a href="week%208/">Week 8</a></p>
-    </section>
+        <form class="contact-form" id="contact-form" action="#" method="post">
 
-    <section class="contact-section">
-      <h2>Contact Me</h2>
+          <label for="contact-name">Name</label>
+          <input
+            type="text"
+            id="contact-name"
+            name="name"
+            placeholder="Your name"
+            minlength="2"
+            required
+          >
 
-      <form class="contact-form" id="contact-form" action="#" method="post">
+          <label for="contact-email">Email</label>
+          <input
+            type="email"
+            id="contact-email"
+            name="email"
+            placeholder="you@example.com"
+            required
+          >
 
-        <label for="contact-name">Name</label>
-        <input
-          type="text"
-          id="contact-name"
-          name="name"
-          placeholder="Your name"
-          minlength="2"
-          required
-        >
+          <label for="contact-subject">Subject</label>
+          <input
+            type="text"
+            id="contact-subject"
+            name="subject"
+            placeholder="Message subject"
+            minlength="3"
+            required
+          >
 
-        <label for="contact-email">Email</label>
-        <input
-          type="email"
-          id="contact-email"
-          name="email"
-          placeholder="you@example.com"
-          required
-        >
+          <label for="contact-message">Message</label>
+          <textarea
+            id="contact-message"
+            name="message"
+            placeholder="Write your message"
+            minlength="10"
+            required
+          ></textarea>
 
-        <label for="contact-subject">Subject</label>
-        <input
-          type="text"
-          id="contact-subject"
-          name="subject"
-          placeholder="Message subject"
-          minlength="3"
-          required
-        >
+          <button type="submit">Send Message</button>
 
-        <label for="contact-message">Message</label>
-        <textarea
-          id="contact-message"
-          name="message"
-          placeholder="Write your message"
-          minlength="10"
-          required
-        ></textarea>
-
-        <button type="submit">Send Message</button>
-
-        <p id="contact-status"></p>
-      </form>
-    </section>
+          <p id="contact-status"></p>
+        </form>
+      </section>
+    </main>
 
   </div>
 
