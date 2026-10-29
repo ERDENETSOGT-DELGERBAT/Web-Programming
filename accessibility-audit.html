@@ -1,0 +1,115 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Accessibility Audit</title>
+
+  <style>
+    body {
+      font-family: sans-serif;
+      background-color: #f0fdfa;
+      color: #1e293b;
+      margin: 0;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 40px auto;
+      padding: 20px;
+    }
+
+    header, section {
+      background-color: white;
+      padding: 24px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      margin-bottom: 24px;
+    }
+
+    h1, h2 {
+      color: #0f766e;
+    }
+
+    img {
+      width: 100%;
+      height: auto;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+    }
+
+    a {
+      color: #0f766e;
+      font-weight: bold;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+
+    <header>
+      <h1>Accessibility Audit</h1>
+      <p>Website: My Web Programming Portfolio</p>
+      <p>This report shows the accessibility issue I found and how I fixed it using Lighthouse.</p>
+    </header>
+
+    <main>
+      <section>
+        <h2>1. Before Fix</h2>
+        <p><strong>Accessibility Score: 97/100</strong></p>
+        <p>Problem: The document did not have a main landmark. This made it harder for assistive technology users to identify the main content of the page.</p>
+        <img src="lighthouse-before.png" alt="Lighthouse accessibility report before the fix, showing a score of 97 and a missing main landmark warning">
+      </section>
+
+      <section>
+        <h2>2. What I Changed</h2>
+        <p>I added a main element around the primary content of my website. This gives the page a clear main landmark.</p>
+
+        <p><strong>Before:</strong></p>
+        <pre><code>&lt;div class="info"&gt;
+  ...
+&lt;/div&gt;
+
+&lt;section class="materials"&gt;
+  ...
+&lt;/section&gt;</code></pre>
+
+        <p><strong>After:</strong></p>
+        <pre><code>&lt;main&gt;
+  &lt;div class="info"&gt;
+    ...
+  &lt;/div&gt;
+
+  &lt;section class="materials"&gt;
+    ...
+  &lt;/section&gt;
+&lt;/main&gt;</code></pre>
+
+        <p>I also reviewed the page's accessibility and checked the updated result using Lighthouse.</p>
+      </section>
+
+      <section>
+        <h2>3. After Fix</h2>
+        <p><strong>Accessibility Score: 100/100</strong></p>
+        <p>The updated Lighthouse audit showed a score of 100. The missing main landmark warning was no longer reported.</p>
+        <img src="lighthouse-after.png" alt="Lighthouse accessibility report after the fix, showing a score of 100">
+      </section>
+
+      <section>
+        <h2>4. Result</h2>
+        <p>The accessibility score improved from 97 to 100. Adding the main landmark helped make the page structure clearer for assistive technologies.</p>
+      </section>
+
+      <p><a href="index.html">Back to Homepage</a></p>
+    </main>
+
+  </div>
+</body>
+</html>
