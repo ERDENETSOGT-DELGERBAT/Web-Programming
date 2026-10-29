@@ -49,31 +49,41 @@
       background-color: white;
     }
 
-    input[type="text"]:focus,
-    input[type="email"]:focus,
-    input[type="password"]:focus,
-    input[type="date"]:focus,
+    input:focus,
     select:focus {
       outline: 2px solid #99f6e4;
       border-color: #0f766e;
     }
 
-    input[type="text"]:valid:not(:placeholder-shown),
-    input[type="email"]:valid:not(:placeholder-shown),
-    input[type="password"]:valid:not(:placeholder-shown) {
-      border: 2px solid #16a34a;
+    input:valid:not(:placeholder-shown),
+    select:valid {
+      border-color: #16a34a;
       background-color: #f0fdf4;
     }
 
-    input[type="text"]:invalid:not(:placeholder-shown),
-    input[type="email"]:invalid:not(:placeholder-shown),
-    input[type="password"]:invalid:not(:placeholder-shown) {
-      border: 2px solid #dc2626;
+    input:invalid:not(:placeholder-shown),
+    select:invalid {
+      border-color: #dc2626;
       background-color: #fef2f2;
     }
 
-    select:valid {
-      border-color: #16a34a;
+    input[type="checkbox"],
+    input[type="range"] {
+      accent-color: #0f766e;
+    }
+
+    .help {
+      display: block;
+      color: #64748b;
+      font-size: 13px;
+      margin-top: 5px;
+    }
+
+    .error {
+      display: block;
+      color: #dc2626;
+      font-size: 13px;
+      margin-top: 5px;
     }
 
     .terms {
@@ -87,11 +97,6 @@
       margin: 0;
     }
 
-    input[type="checkbox"],
-    input[type="range"] {
-      accent-color: #0f766e;
-    }
-
     button {
       padding: 10px 20px;
       background-color: #0f766e;
@@ -102,8 +107,9 @@
       cursor: pointer;
     }
 
-    button:hover {
-      background-color: #115e59;
+    button:disabled {
+      background-color: #94a3b8;
+      cursor: not-allowed;
     }
 
     #experience-value {
@@ -111,8 +117,13 @@
       font-weight: bold;
     }
 
-    #message {
+    #success-message {
       margin-top: 15px;
+      padding: 12px;
+      background-color: #dcfce7;
+      color: #166534;
+      border: 1px solid #86efac;
+      border-radius: 5px;
     }
 
     a {
@@ -125,7 +136,7 @@
 
   <h1>Student Registration</h1>
 
-  <form id="registration-form" action="#" method="post">
+  <form id="registration-form" action="#" method="post" novalidate>
 
     <fieldset>
       <legend>Personal Info</legend>
@@ -136,8 +147,12 @@
         id="full-name"
         name="fullName"
         placeholder="Enter your full name"
+        aria-describedby="full-name-help full-name-error"
+        aria-invalid="false"
         required
       >
+      <small id="full-name-help" class="help">Enter your full name.</small>
+      <small id="full-name-error" class="error"></small>
 
       <label for="student-id">Student ID</label>
       <input
@@ -147,18 +162,32 @@
         pattern="[0-9]{9}"
         placeholder="9-digit student ID"
         title="Enter exactly 9 digits"
+        aria-describedby="student-id-help student-id-error"
+        aria-invalid="false"
         required
       >
+      <small id="student-id-help" class="help">Enter exactly 9 digits.</small>
+      <small id="student-id-error" class="error"></small>
 
       <label for="birth-date">Date of Birth</label>
       <input
         type="date"
         id="birth-date"
         name="dateOfBirth"
+        aria-describedby="birth-date-help birth-date-error"
+        aria-invalid="false"
       >
+      <small id="birth-date-help" class="help">Select your date of birth.</small>
+      <small id="birth-date-error" class="error"></small>
 
       <label for="major">Major</label>
-      <select id="major" name="major" required>
+      <select
+        id="major"
+        name="major"
+        aria-describedby="major-help major-error"
+        aria-invalid="false"
+        required
+      >
         <option value="" selected disabled>Select your major</option>
         <option value="Computer Engineering">Computer Engineering</option>
         <option value="Software">Software</option>
@@ -166,6 +195,8 @@
         <option value="Artificial Intelligence">Artificial Intelligence</option>
         <option value="Electrical Engineering">Electrical Engineering</option>
       </select>
+      <small id="major-help" class="help">Choose your major.</small>
+      <small id="major-error" class="error"></small>
 
       <label for="experience">Years of Coding Experience</label>
       <input
@@ -175,6 +206,8 @@
         min="0"
         max="10"
         value="0"
+        aria-describedby="experience-value"
+        aria-invalid="false"
       >
       <span id="experience-value">0 years</span>
     </fieldset>
@@ -188,8 +221,12 @@
         id="email"
         name="email"
         placeholder="you@example.com"
+        aria-describedby="email-help email-error"
+        aria-invalid="false"
         required
       >
+      <small id="email-help" class="help">Enter a valid email address.</small>
+      <small id="email-error" class="error"></small>
 
       <label for="password">Password</label>
       <input
@@ -198,8 +235,25 @@
         name="password"
         minlength="8"
         placeholder="At least 8 characters"
+        aria-describedby="password-help password-error"
+        aria-invalid="false"
         required
       >
+      <small id="password-help" class="help">Use at least 8 characters.</small>
+      <small id="password-error" class="error"></small>
+
+      <label for="confirm-password">Confirm Password</label>
+      <input
+        type="password"
+        id="confirm-password"
+        name="confirmPassword"
+        placeholder="Enter your password again"
+        aria-describedby="confirm-password-help confirm-password-error"
+        aria-invalid="false"
+        required
+      >
+      <small id="confirm-password-help" class="help">Enter the same password again.</small>
+      <small id="confirm-password-error" class="error"></small>
 
       <label for="phone">Phone</label>
       <input
@@ -209,35 +263,147 @@
         pattern="[0-9]{3}-[0-9]{4}-[0-9]{4}"
         placeholder="010-1234-5678"
         title="Use the format 010-1234-5678"
+        aria-describedby="phone-help phone-error"
+        aria-invalid="false"
       >
+      <small id="phone-help" class="help">Optional. Format: 010-1234-5678.</small>
+      <small id="phone-error" class="error"></small>
     </fieldset>
 
     <div class="terms">
-      <input type="checkbox" id="terms" name="terms" required>
+      <input
+        type="checkbox"
+        id="terms"
+        name="terms"
+        aria-describedby="terms-help terms-error"
+        aria-invalid="false"
+        required
+      >
       <label for="terms">I agree to the terms</label>
     </div>
+    <small id="terms-help" class="help">You must agree before submitting.</small>
+    <small id="terms-error" class="error"></small>
 
-    <button type="submit">Register</button>
+    <button type="submit" id="register-button" disabled>Register</button>
 
-    <p id="message"></p>
+    <div id="success-message" role="status" aria-live="polite" hidden>
+    </div>
+
   </form>
 
   <p><a href="index.html">Back to Week 8</a></p>
 
   <script>
+    const form = document.getElementById('registration-form');
+    const registerButton = document.getElementById('register-button');
+    const password = document.getElementById('password');
+    const confirmPassword = document.getElementById('confirm-password');
     const experience = document.getElementById('experience');
     const experienceValue = document.getElementById('experience-value');
+    const successMessage = document.getElementById('success-message');
 
-    experience.addEventListener('input', function() {
-      experienceValue.textContent = experience.value + ' years';
-    });
+    const fields = form.querySelectorAll('input, select');
+    const touched = new Set();
 
-    document.getElementById('registration-form').addEventListener('submit', function(event) {
+    function updatePassword() {
+      if (confirmPassword.value !== '' &&
+          confirmPassword.value !== password.value) {
+        confirmPassword.setCustomValidity('Passwords do not match.');
+      } else {
+        confirmPassword.setCustomValidity('');
+      }
+    }
+
+    function getError(field) {
+      if (field.validity.valueMissing) {
+        return 'This field is required.';
+      }
+
+      if (field.validity.typeMismatch) {
+        return 'Enter a valid email address.';
+      }
+
+      if (field.validity.patternMismatch && field.id === 'student-id') {
+        return 'Student ID must contain exactly 9 digits.';
+      }
+
+      if (field.validity.patternMismatch && field.id === 'phone') {
+        return 'Use the format 010-1234-5678.';
+      }
+
+      if (field.validity.tooShort) {
+        return 'Password must contain at least 8 characters.';
+      }
+
+      if (field.validity.customError) {
+        return field.validationMessage;
+      }
+
+      return '';
+    }
+
+    function validateForm(changedField) {
+      updatePassword();
+
+      if (changedField) {
+        touched.add(changedField.id);
+      }
+
+      if (changedField === password && confirmPassword.value !== '') {
+        touched.add(confirmPassword.id);
+      }
+
+      for (let field of fields) {
+        if (touched.has(field.id)) {
+          const valid = field.validity.valid;
+          field.setAttribute('aria-invalid', String(!valid));
+
+          const error = document.getElementById(field.id + '-error');
+
+          if (error) {
+            error.textContent = valid ? '' : getError(field);
+          }
+        }
+      }
+
+      registerButton.disabled = !form.checkValidity();
+      successMessage.hidden = true;
+      successMessage.textContent = '';
+    }
+
+    for (let field of fields) {
+      field.addEventListener('input', function() {
+        validateForm(field);
+
+        if (field === experience) {
+          experienceValue.textContent = experience.value + ' years';
+        }
+      });
+
+      field.addEventListener('change', function() {
+        validateForm(field);
+      });
+    }
+
+    form.addEventListener('submit', function(event) {
       event.preventDefault();
+      updatePassword();
 
-      document.getElementById('message').textContent =
-        'Form validation successful!';
+      if (!form.checkValidity()) {
+        for (let field of fields) {
+          touched.add(field.id);
+        }
+
+        validateForm();
+        return;
+      }
+
+      successMessage.textContent =
+        'Form validation successful! No registration server is connected.';
+      successMessage.hidden = false;
     });
+
+    validateForm();
   </script>
 
 </body>
