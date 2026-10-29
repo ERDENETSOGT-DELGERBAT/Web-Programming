@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,12 +7,12 @@
 
   <style>
     body {
-      font-family: Arial, sans-serif;
+      font-family: system-ui, sans-serif;
       background: #f5f5f5;
       color: #1e293b;
-      max-width: 500px;
+      max-width: 400px;
       margin: 35px auto;
-      padding: 20px;
+      padding: 24px;
     }
 
     section {
@@ -29,17 +28,16 @@
 
     label {
       display: block;
-      margin: 16px 0 6px;
-      font-weight: bold;
+      margin: 14px 0 6px;
     }
 
     input {
       width: 100%;
       box-sizing: border-box;
-      padding: 10px;
-      border: 1px solid #cbd5e1;
-      border-radius: 5px;
-      font: inherit;
+      padding: 9px;
+      border: 2px solid #ccc;
+      border-radius: 6px;
+      font-size: 15px;
     }
 
     input:focus-visible,
@@ -49,54 +47,33 @@
       outline-offset: 3px;
     }
 
-    .icon-btn {
-      width: 42px;
-      height: 42px;
-      background: #1a7f5a;
-      color: white;
-      border: none;
-      border-radius: 50%;
-      font-size: 18px;
-      cursor: pointer;
-    }
-
-    .submit-btn {
-      width: 100%;
-      margin-top: 18px;
-      padding: 11px;
-      background: #1a56db;
-      color: white;
-      border: none;
-      border-radius: 5px;
-      font-size: 15px;
-      cursor: pointer;
-    }
-
     .error {
       color: #b91c1c;
       font-size: 13px;
-      margin-top: 6px;
     }
 
-    .help {
-      color: #475569;
-      font-size: 13px;
-      margin-top: 6px;
+    .submit-btn {
+      background: #1a56db;
+      color: white;
+      padding: 10px 24px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      width: 100%;
+      margin-top: 12px;
     }
 
     .team-link {
       display: inline-block;
-      margin-top: 20px;
+      margin-top: 16px;
     }
 
     .team-link img {
       display: block;
-      width: 130px;
-      height: 55px;
-    }
-
-    #result {
-      margin-top: 14px;
+      width: 80px;
+      height: 40px;
+      background: #e0eaff;
+      border-radius: 4px;
     }
 
     a {
@@ -110,48 +87,32 @@
   <h1>Sign Up</h1>
 
   <section>
-    <button
-      type="button"
-      class="icon-btn"
-      aria-label="Search"
-      onclick="showSearch()"
-    >⌕</button>
-
-    <p id="search-result" role="status" aria-live="polite"></p>
-
     <form id="signup-form" novalidate>
+
       <label for="email-field">Email address</label>
       <input
         type="email"
         id="email-field"
         placeholder="Email address"
-        aria-describedby="email-help email-error"
+        aria-describedby="email-error"
         aria-invalid="false"
         required
       >
-      <p class="help" id="email-help">Enter a valid email address.</p>
-      <p class="error" id="email-error" hidden></p>
 
-      <label for="password-field">Password</label>
-      <input
-        type="password"
-        id="password-field"
-        placeholder="At least 8 characters"
-        aria-describedby="password-help password-error"
-        aria-invalid="false"
-        required
-        minlength="8"
-      >
-      <p class="help" id="password-help">Use at least 8 characters.</p>
-      <p class="error" id="password-error" hidden></p>
+      <p class="error" id="email-error" role="alert"></p>
+
+      <p class="error">
+        Error: Password too short. Must be at least 8 characters.
+      </p>
 
       <button type="submit" class="submit-btn">Create Account</button>
+
       <p id="result" role="status" aria-live="polite"></p>
     </form>
 
     <a class="team-link" href="../index.html">
       <img
-        src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 260 110'%3E%3Crect width='260' height='110' rx='8' fill='%23e0eaff'/%3E%3Ccircle cx='45' cy='55' r='25' fill='%230f766e'/%3E%3Cpath d='M30 55 L45 40 L60 55 L45 70 Z' fill='white'/%3E%3Ctext x='82' y='48' font-family='Arial' font-size='15' fill='%231a2340'%3EWeb Programming%3C/text%3E%3Ctext x='82' y='70' font-family='Arial' font-size='13' fill='%235a6a8a'%3EHome Page%3C/text%3E%3C/svg%3E"
+        src=""
         alt="Open the Web Programming homepage"
       >
     </a>
@@ -162,49 +123,30 @@
   <script>
     const form = document.getElementById('signup-form');
     const email = document.getElementById('email-field');
-    const password = document.getElementById('password-field');
-
-    function showSearch() {
-      document.getElementById('search-result').textContent =
-        'Search button activated.';
-    }
-
-    function checkField(field, errorId, message) {
-      let error = document.getElementById(errorId);
-      let invalid = !field.validity.valid && field.value !== '';
-
-      field.setAttribute('aria-invalid', String(invalid));
-      error.hidden = !invalid;
-
-      if (invalid) {
-        error.textContent = 'Error: ' + message;
-      } else {
-        error.textContent = '';
-      }
-    }
+    const error = document.getElementById('email-error');
+    const result = document.getElementById('result');
 
     email.addEventListener('input', function() {
-      checkField(email, 'email-error', 'Enter a valid email address.');
-    });
-
-    password.addEventListener('input', function() {
-      checkField(password, 'password-error', 'Password must contain at least 8 characters.');
+      if (email.validity.valid) {
+        error.textContent = '';
+        email.setAttribute('aria-invalid', 'false');
+      } else {
+        error.textContent = 'Error: Enter a valid email address.';
+        email.setAttribute('aria-invalid', 'true');
+      }
     });
 
     form.addEventListener('submit', function(event) {
       event.preventDefault();
 
-      checkField(email, 'email-error', 'Enter a valid email address.');
-      checkField(password, 'password-error', 'Password must contain at least 8 characters.');
-
       if (!form.checkValidity()) {
-        document.getElementById('result').textContent =
-          'Please correct the errors above.';
+        error.textContent = 'Error: Enter a valid email address.';
+        email.setAttribute('aria-invalid', 'true');
+        result.textContent = 'Please correct the error above.';
         return;
       }
 
-      document.getElementById('result').textContent =
-        'The form is valid. No account has been created.';
+      result.textContent = 'Email format is valid.';
     });
   </script>
 
