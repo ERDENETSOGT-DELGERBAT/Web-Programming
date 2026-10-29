@@ -1,234 +1,225 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Accessible Sign Up</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Accessible Sign Up | Week 9</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
 
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #eef4ff;
-      color: #172b4d;
-      max-width: 720px;
-      margin: auto;
-      padding: 25px;
-    }
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f0f5ff;
+            color: #24324b;
+            line-height: 1.6;
+        }
 
-    .panel {
-      background: white;
-      padding: 25px;
-      margin-bottom: 18px;
-      border: 1px solid #d9e4f5;
-      border-radius: 12px;
-    }
+        header {
+            background: #254b87;
+            color: white;
+            padding: 28px 20px;
+            text-align: center;
+        }
 
-    h1, h2 {
-      color: #2456b3;
-    }
+        header h1 {
+            margin: 0 0 8px;
+        }
 
-    label {
-      display: block;
-      margin: 14px 0 6px;
-      font-weight: bold;
-    }
+        main {
+            width: min(100% - 32px, 540px);
+            margin: 35px auto;
+        }
 
-    input {
-      width: 100%;
-      box-sizing: border-box;
-      padding: 11px;
-      border: 1px solid #aebed4;
-      border-radius: 6px;
-      font: inherit;
-    }
+        .card {
+            background: white;
+            padding: 28px;
+            border-radius: 14px;
+            box-shadow: 0 5px 20px rgba(25, 50, 90, 0.08);
+        }
 
-    input:focus-visible,
-    button:focus-visible,
-    a:focus-visible {
-      outline: 3px solid #e09f22;
-      outline-offset: 3px;
-    }
+        h2 {
+            margin-top: 0;
+        }
 
-    input:invalid:not(:placeholder-shown) {
-      border-color: #b42318;
-      background: #fff5f4;
-    }
+        label {
+            display: block;
+            margin: 18px 0 6px;
+            font-weight: bold;
+        }
 
-    input:valid:not(:placeholder-shown) {
-      border-color: #18805a;
-      background: #f2fbf6;
-    }
+        input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #9aabc5;
+            border-radius: 7px;
+            font: inherit;
+        }
 
-    button {
-      padding: 10px 16px;
-      margin-top: 14px;
-      border: none;
-      border-radius: 6px;
-      background: #2456b3;
-      color: white;
-      font: inherit;
-      cursor: pointer;
-    }
+        input:focus,
+        button:focus,
+        a:focus {
+            outline: 3px solid #e5a52b;
+            outline-offset: 3px;
+        }
 
-    .error {
-      min-height: 18px;
-      color: #b42318;
-      font-size: 13px;
-    }
+        input[aria-invalid="true"] {
+            border: 2px solid #b42318;
+        }
 
-    .message {
-      padding: 12px;
-      background: #f1f5fb;
-      border-radius: 6px;
-      line-height: 1.5;
-    }
+        .help {
+            color: #53647e;
+            font-size: 14px;
+            margin: 5px 0 0;
+        }
 
-    .submit {
-      width: 100%;
-    }
+        button {
+            border: 0;
+            border-radius: 7px;
+            padding: 11px 16px;
+            margin-top: 16px;
+            background: #254b87;
+            color: white;
+            font: inherit;
+            font-weight: bold;
+            cursor: pointer;
+        }
 
-    img {
-      width: 100px;
-      height: 60px;
-      object-fit: contain;
-      background: #dbeafe;
-      border-radius: 6px;
-    }
+        button:hover {
+            background: #193864;
+        }
 
-    a {
-      color: #2456b3;
-    }
-  </style>
+        .error {
+            color: #b42318;
+            font-size: 14px;
+            margin: 5px 0 0;
+        }
+
+        #message {
+            margin-top: 18px;
+            padding: 12px;
+            border-radius: 7px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            color: #53647e;
+            font-size: 14px;
+        }
+    </style>
 </head>
-
 <body>
+    <header>
+        <h1>Create Your Account</h1>
+        <p>A simple form designed with accessibility in mind.</p>
+    </header>
 
-  <h1>Accessible Sign Up</h1>
+    <main>
+        <section class="card" aria-labelledby="form-title">
+            <h2 id="form-title">Sign Up</h2>
+            <p>Enter your details below to create an account.</p>
 
-  <section class="panel">
-    <h2>Find help</h2>
+            <button type="button" id="help-button" aria-expanded="false" aria-controls="form-help">
+                Show password help
+            </button>
 
-    <button
-      type="button"
-      id="search-button"
-      aria-label="Show email and password guidance"
-      aria-expanded="false"
-      aria-controls="help"
-    >? Help</button>
+            <p id="form-help" hidden>
+                Use at least 8 characters for your password. Avoid using a password you already use elsewhere.
+            </p>
 
-    <p id="help" class="message" hidden>
-      Enter a valid email address and a password containing at least eight characters.
-    </p>
-  </section>
+            <form id="signup-form" novalidate>
+                <label for="email">Email address</label>
+                <input type="email" id="email" name="email" autocomplete="email" required aria-describedby="email-error">
+                <p class="error" id="email-error"></p>
 
-  <section class="panel">
-    <h2>Create an account</h2>
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" autocomplete="new-password" minlength="8" required aria-describedby="password-error">
+                <p class="error" id="password-error"></p>
 
-    <form id="signup-form" novalidate>
-      <label for="email">Email address</label>
-      <input
-        type="email"
-        id="email"
-        name="email"
-        placeholder="name@example.com"
-        aria-describedby="email-error"
-        required
-      >
-      <p id="email-error" class="error"></p>
+                <button type="submit">Create Account</button>
+            </form>
 
-      <label for="password">Password</label>
-      <input
-        type="password"
-        id="password"
-        name="password"
-        placeholder="At least 8 characters"
-        minlength="8"
-        aria-describedby="password-error"
-        required
-      >
-      <p id="password-error" class="error"></p>
+            <div id="message" role="status" aria-live="polite"></div>
+        </section>
+    </main>
 
-      <p id="status" class="message" role="status" aria-live="polite"></p>
+    <footer>
+        Week 9 · Accessible Web Forms
+    </footer>
 
-      <button type="submit" class="submit">Create Account</button>
-    </form>
-  </section>
+    <script>
+        const form = document.getElementById("signup-form");
+        const email = document.getElementById("email");
+        const password = document.getElementById("password");
+        const emailError = document.getElementById("email-error");
+        const passwordError = document.getElementById("password-error");
+        const message = document.getElementById("message");
+        const helpButton = document.getElementById("help-button");
+        const formHelp = document.getElementById("form-help");
 
-  <section class="panel">
-    <h2>Learn about the site</h2>
+        helpButton.addEventListener("click", function () {
+            const isExpanded = helpButton.getAttribute("aria-expanded") === "true";
+            helpButton.setAttribute("aria-expanded", String(!isExpanded));
+            formHelp.hidden = isExpanded;
+            helpButton.textContent = isExpanded ? "Show password help" : "Hide password help";
+        });
 
-    <a href="index.html" aria-label="Visit the Web Programming homepage">
-      <img
-        src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 100'%3E%3Crect width='200' height='100' rx='10' fill='%23dbeafe'/%3E%3Crect x='40' y='20' width='120' height='60' rx='5' fill='%232456b3'/%3E%3Cpath d='M60 38 H140 M60 50 H125 M60 62 H135' stroke='white' stroke-width='4'/%3E%3C/svg%3E"
-        alt="Web Programming homepage"
-      >
-    </a>
-    <p>This image is a link to the homepage, and its accessible name describes the destination.</p>
-  </section>
+        function validateEmail() {
+            if (!email.validity.valid) {
+                email.setAttribute("aria-invalid", "true");
+                emailError.textContent = email.value.trim() === ""
+                    ? "Please enter your email address."
+                    : "Please enter a valid email address.";
+                return false;
+            }
 
-  <p><a href="index.html">Back to Week 9</a></p>
+            email.removeAttribute("aria-invalid");
+            emailError.textContent = "";
+            return true;
+        }
 
-  <script>
-    const helpButton = document.getElementById('search-button');
-    const help = document.getElementById('help');
-    const form = document.getElementById('signup-form');
-    const email = document.getElementById('email');
-    const password = document.getElementById('password');
+        function validatePassword() {
+            if (password.value.length < 8) {
+                password.setAttribute("aria-invalid", "true");
+                passwordError.textContent = "Your password must contain at least 8 characters.";
+                return false;
+            }
 
-    helpButton.addEventListener('click', function() {
-      help.hidden = !help.hidden;
-      helpButton.setAttribute('aria-expanded', String(!help.hidden));
-    });
+            password.removeAttribute("aria-invalid");
+            passwordError.textContent = "";
+            return true;
+        }
 
-    function checkEmail() {
-      const error = document.getElementById('email-error');
+        email.addEventListener("input", validateEmail);
+        password.addEventListener("input", validatePassword);
 
-      if (email.value === '') {
-        error.textContent = '';
-        email.removeAttribute('aria-invalid');
-      } else if (!email.validity.valid) {
-        error.textContent = 'Error: Please enter a valid email address.';
-        email.setAttribute('aria-invalid', 'true');
-      } else {
-        error.textContent = '';
-        email.setAttribute('aria-invalid', 'false');
-      }
-    }
+        form.addEventListener("submit", function (event) {
+            event.preventDefault();
 
-    function checkPassword() {
-      const error = document.getElementById('password-error');
+            const emailIsValid = validateEmail();
+            const passwordIsValid = validatePassword();
 
-      if (password.value === '') {
-        error.textContent = '';
-        password.removeAttribute('aria-invalid');
-      } else if (password.value.length < 8) {
-        error.textContent = 'Error: Password must be at least 8 characters.';
-        password.setAttribute('aria-invalid', 'true');
-      } else {
-        error.textContent = '';
-        password.setAttribute('aria-invalid', 'false');
-      }
-    }
+            if (emailIsValid && passwordIsValid) {
+                message.textContent = "Your form is valid! This demo does not create a real account.";
+                message.style.backgroundColor = "#e5f6eb";
+                message.style.color = "#17643a";
+            } else {
+                message.textContent = "Please correct the errors above and try again.";
+                message.style.backgroundColor = "#fff0ee";
+                message.style.color = "#b42318";
 
-    email.addEventListener('input', checkEmail);
-    password.addEventListener('input', checkPassword);
-
-    form.addEventListener('submit', function(event) {
-      event.preventDefault();
-
-      checkEmail();
-      checkPassword();
-
-      if (!form.checkValidity()) {
-        document.getElementById('status').textContent =
-          'Please correct the errors before continuing.';
-        form.reportValidity();
-      } else {
-        document.getElementById('status').textContent =
-          'The form is valid. This demo does not create or save an account.';
-      }
-    });
-  </script>
-
+                if (!emailIsValid) {
+                    email.focus();
+                } else {
+                    password.focus();
+                }
+            }
+        });
+    </script>
 </body>
 </html>
+```
