@@ -1,0 +1,196 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Website Performance Report</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: system-ui, sans-serif;
+      background: #f3f7f4;
+      color: #26372d;
+      max-width: 850px;
+      margin: 0 auto;
+      padding: 40px 20px;
+    }
+
+    header {
+      margin-bottom: 30px;
+    }
+
+    h1 {
+      font-size: 30px;
+      margin-bottom: 8px;
+    }
+
+    .subtitle {
+      color: #718077;
+    }
+
+    .score-card {
+      background: white;
+      border: 1px solid #dce9df;
+      border-radius: 16px;
+      padding: 25px;
+      text-align: center;
+      margin-bottom: 24px;
+    }
+
+    .score {
+      font-size: 64px;
+      font-weight: 750;
+      color: #16834b;
+    }
+
+    .score-label {
+      color: #68766e;
+      font-weight: 600;
+    }
+
+    h2 {
+      font-size: 21px;
+      margin-top: 30px;
+    }
+
+    .report-section {
+      background: white;
+      border: 1px solid #dce9df;
+      border-radius: 16px;
+      padding: 24px;
+      margin-top: 24px;
+    }
+
+    .screenshot {
+      width: 100%;
+      height: auto;
+      border-radius: 10px;
+      border: 1px solid #e2e8e4;
+      display: block;
+    }
+
+    .metrics {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 12px;
+    }
+
+    .metric {
+      background: #f7faf8;
+      border: 1px solid #dce9df;
+      border-radius: 12px;
+      padding: 16px;
+    }
+
+    .metric span {
+      color: #718077;
+      font-size: 13px;
+    }
+
+    .metric strong {
+      display: block;
+      font-size: 23px;
+      color: #24764a;
+      margin-top: 8px;
+    }
+
+    p {
+      line-height: 1.7;
+    }
+
+    a {
+      color: #24764a;
+      font-weight: 600;
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <h1>Website Performance Report</h1>
+    <p class="subtitle">Week 10 · Web Programming</p>
+  </header>
+
+  <div class="score-card">
+    <div class="score">100/100</div>
+    <div class="score-label">Initial Lighthouse Performance Score</div>
+  </div>
+
+  <section class="report-section">
+    <h2>Before Optimization</h2>
+    <p>Initial Lighthouse Performance audit.</p>
+
+    <img
+      class="screenshot"
+      src="lighthouse-before.png"
+      alt="Initial Lighthouse Performance report showing a score of 100">
+  </section>
+
+  <section class="report-section">
+    <h2>Optimizations Applied</h2>
+
+    <p>
+      I practiced the performance optimization techniques covered in E1, E2,
+      and E3, including lazy loading, image dimensions, responsive WebP images,
+      and improved JavaScript loading with defer and async.
+      After completing these exercises, I reran Lighthouse on my personal
+      website and received the same Performance score of 100/100.
+    </p>
+  </section>
+
+  <div class="score-card">
+    <div class="score">100/100</div>
+    <div class="score-label">Final Lighthouse Performance Score</div>
+  </div>
+
+  <section class="report-section">
+    <h2>After Optimization</h2>
+    <p>Second Lighthouse Performance audit.</p>
+
+    <img
+      class="screenshot"
+      src="lighthouse-after.png"
+      alt="Second Lighthouse Performance report showing a score of 100">
+  </section>
+
+  <section class="report-section">
+    <h2>Final Performance Metrics</h2>
+
+    <div class="metrics">
+      <div class="metric">
+        <span>First Contentful Paint</span>
+        <strong>0.4 s</strong>
+      </div>
+
+      <div class="metric">
+        <span>Largest Contentful Paint</span>
+        <strong>0.4 s</strong>
+      </div>
+
+      <div class="metric">
+        <span>Total Blocking Time</span>
+        <strong>0 ms</strong>
+      </div>
+
+      <div class="metric">
+        <span>Cumulative Layout Shift</span>
+        <strong>0</strong>
+      </div>
+
+      <div class="metric">
+        <span>Speed Index</span>
+        <strong>0.4 s</strong>
+      </div>
+    </div>
+  </section>
+
+  <p><a href="index.html">← Back to Week 10</a></p>
+
+</body>
+</html>
