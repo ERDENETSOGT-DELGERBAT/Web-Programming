@@ -1,0 +1,249 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GitHub Pages & Deployment</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 35px 20px;
+            background: #f5f6fa;
+            color: #20283b;
+            font-family: Arial, sans-serif;
+            line-height: 1.7;
+        }
+
+        main {
+            max-width: 850px;
+            margin: 0 auto;
+        }
+
+        header {
+            padding: 40px;
+            background: #202b49;
+            color: white;
+            border-radius: 16px;
+        }
+
+        header p {
+            color: #d0d7eb;
+        }
+
+        .eyebrow {
+            color: #6558e8;
+            font-size: 12px;
+            font-weight: bold;
+            letter-spacing: 2px;
+        }
+
+        header .eyebrow {
+            color: #c4bdff;
+        }
+
+        h1 {
+            margin: 8px 0;
+            font-size: 38px;
+        }
+
+        section {
+            margin-top: 22px;
+            padding: 28px;
+            background: white;
+            border: 1px solid #e5e7ef;
+            border-radius: 14px;
+        }
+
+        h2 {
+            margin: 6px 0 12px;
+            font-size: 23px;
+        }
+
+        section p:not(.eyebrow) {
+            color: #505b70;
+        }
+
+        .links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 20px;
+        }
+
+        .links a {
+            display: inline-block;
+            padding: 10px 16px;
+            background: #5548c8;
+            color: white;
+            border-radius: 8px;
+            font-weight: bold;
+            font-size: 14px;
+            text-decoration: none;
+        }
+
+        .links a:hover {
+            background: #4034a8;
+        }
+
+        figure {
+            margin: 22px 0 0;
+        }
+
+        figure img {
+            display: block;
+            width: 100%;
+            height: auto;
+            border: 1px solid #e5e7ef;
+            border-radius: 10px;
+        }
+
+        figcaption {
+            margin-top: 8px;
+            color: #505b70;
+            font-size: 13px;
+        }
+
+        footer {
+            margin-top: 30px;
+            text-align: center;
+            color: #626b80;
+            font-size: 13px;
+        }
+
+        @media (max-width: 600px) {
+            header {
+                padding: 28px 22px;
+            }
+
+            h1 {
+                font-size: 30px;
+            }
+
+            section {
+                padding: 22px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+<main>
+
+    <header>
+        <p class="eyebrow">GACHON UNIVERSITY · WEB PROGRAMMING</p>
+        <h1>GitHub Pages & Deployment</h1>
+        <p>Lecture date: November 9, 2026</p>
+    </header>
+
+    <section>
+        <p class="eyebrow">INTERACTIVE EXERCISES · E1–E3</p>
+        <h2>GitHub Pages & Custom 404 Page</h2>
+
+        <p>
+            Enabled GitHub Pages for webpro-w9, tested a missing page,
+            and created a custom 404 error page with a link back
+            to the homepage.
+        </p>
+
+        <p>
+            The default 404 page is functional but generic.
+            A custom error page provides a friendlier message
+            and helps visitors return to the homepage.
+        </p>
+
+        <div class="links">
+            <a href="https://github.com/ERDENETSOGT-DELGERBAT/webpro-w9"
+               target="_blank" rel="noopener noreferrer">
+                webpro-w9 Repository →
+            </a>
+
+            <a href="https://erdenetsogt-delgerbat.github.io/webpro-w9/"
+               target="_blank" rel="noopener noreferrer">
+                GitHub Pages Website →
+            </a>
+
+            <a href="https://erdenetsogt-delgerbat.github.io/webpro-w9/this-does-not-exist.html"
+               target="_blank" rel="noopener noreferrer">
+                Test Custom 404 Page →
+            </a>
+
+            <a href="https://github.com/ERDENETSOGT-DELGERBAT/webpro-w9/blob/main/404.html"
+               target="_blank" rel="noopener noreferrer">
+                View 404.html Source →
+            </a>
+        </div>
+    </section>
+
+    <section>
+        <p class="eyebrow">WEEK 9 HOMEWORK</p>
+        <h2>Book Search App Deployment</h2>
+
+        <p>
+            Deployed my Book Search application to a separate
+            public GitHub repository and published it using GitHub Pages.
+            Tested the live application and confirmed that book searches work.
+        </p>
+
+        <div class="links">
+            <a href="https://github.com/ERDENETSOGT-DELGERBAT/webpro-book-search"
+               target="_blank" rel="noopener noreferrer">
+                Book Search GitHub Repository →
+            </a>
+
+            <a href="https://erdenetsogt-delgerbat.github.io/webpro-book-search/"
+               target="_blank" rel="noopener noreferrer">
+                Live Book Search App →
+            </a>
+        </div>
+    </section>
+
+    <section>
+        <p class="eyebrow">HOMEWORK · GITHUB PAGES</p>
+        <h2>Personal Portfolio Deployment</h2>
+
+        <p>
+            Published my personal portfolio using GitHub Pages.
+            The website includes semantic HTML, responsive CSS,
+            a JavaScript dark mode toggle, and mobile-friendly layouts.
+        </p>
+
+        <p>
+            <strong>Lighthouse Accessibility score: 100/100</strong>
+        </p>
+
+        <div class="links">
+            <a href="https://github.com/ERDENETSOGT-DELGERBAT/portfolio"
+               target="_blank" rel="noopener noreferrer">
+                Portfolio GitHub Repository →
+            </a>
+
+            <a href="https://erdenetsogt-delgerbat.github.io/portfolio/"
+               target="_blank" rel="noopener noreferrer">
+                Live Portfolio Website →
+            </a>
+        </div>
+
+        <figure>
+            <img
+                src="lighthouse-accessibility.png"
+                alt="Lighthouse accessibility audit report showing a score of 100 out of 100."
+            >
+            <figcaption>
+                Lighthouse Accessibility audit result — 100/100.
+            </figcaption>
+        </figure>
+    </section>
+
+    <footer>
+        <p>© 2026 Erdenetsogt Delgerbat · Gachon University</p>
+    </footer>
+
+</main>
+</body>
+</html>
