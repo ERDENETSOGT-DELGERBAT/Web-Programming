@@ -1,4 +1,6 @@
-const status = document.getElementById("status");
 
-status.textContent = "App script loaded successfully. The HTML was parsed before it ran.";
-status.className = "ok";
+const appStatus = document.getElementById("app-status");
+
+appStatus.textContent =
+  "The deferred script executed after HTML parsing. Document state: " +
+  document.readyState;
