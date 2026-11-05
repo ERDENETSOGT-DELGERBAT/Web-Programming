@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Performance Practice</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" defer></script>
+  <style>
+    body {
+      font-family: system-ui, sans-serif;
+      padding: 24px;
+      max-width: 700px;
+      margin: auto;
+      color: #26352d;
+      background: #f7faf8;
+    }
+    img {
+      display: block;
+      width: 100%;
+      height: auto;
+      border-radius: 10px;
+      margin: 16px 0;
+    }
+    h2 {
+      color: #268052;
+    }
+  </style>
+</head>
+<body>
+  <h1>Performance Test Page</h1>
+  <p>This page demonstrates some simple performance optimizations.</p>
+
+  <img
+    src="https://picsum.photos/1200/800"
+    alt="Landscape photograph for a performance test"
+    width="1200"
+    height="800">
+
+  <img
+    src="https://picsum.photos/1200/801"
+    alt="Second landscape photograph"
+    width="1200"
+    height="801"
+    loading="lazy">
+
+  <img
+    src="https://picsum.photos/1200/802"
+    alt="Third landscape photograph"
+    width="1200"
+    height="802"
+    loading="lazy">
+
+  <h2>Optimizations</h2>
+  <p>The external script uses defer so it does not block HTML parsing.</p>
+  <p>Images have width and height attributes to reserve space before loading.</p>
+  <p>Images further down the page use lazy loading.</p>
+</body>
+</html>
