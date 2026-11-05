@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Responsive Image Practice</title>
+  <style>
+    body {
+      font-family: system-ui, sans-serif;
+      max-width: 700px;
+      margin: 40px auto;
+      padding: 20px;
+      background: #f7f8fb;
+      color: #283449;
+    }
+    .image-card {
+      background: white;
+      padding: 20px;
+      border-radius: 14px;
+    }
+    img {
+      display: block;
+      width: 100%;
+      height: auto;
+      border-radius: 10px;
+    }
+    p {
+      line-height: 1.6;
+      color: #667085;
+    }
+  </style>
+</head>
+<body>
+  <h1>WebP and Responsive Images</h1>
+  <div class="image-card">
+    <picture>
+      <source
+        type="image/webp"
+        srcset="
+          https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?fit=crop&crop=entropy&fm=webp&w=400&h=225&q=80 400w,
+          https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?fit=crop&crop=entropy&fm=webp&w=800&h=450&q=80 800w"
+        sizes="(max-width: 600px) 100vw, 660px">
+
+      <img
+        src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?fit=crop&crop=entropy&fm=jpg&w=800&h=450&q=80"
+        srcset="
+          https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?fit=crop&crop=entropy&fm=jpg&w=400&h=225&q=80 400w,
+          https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?fit=crop&crop=entropy&fm=jpg&w=800&h=450&q=80 800w"
+        sizes="(max-width: 600px) 100vw, 660px"
+        alt="Landscape photograph used to demonstrate responsive image formats"
+        width="800"
+        height="450"
+        fetchpriority="high">
+    </picture>
+
+    <p>
+      This image uses WebP when supported by the browser and JPEG as a fallback.
+      The browser can also choose between different image sizes depending on the screen.
+    </p>
+  </div>
+</body>
+</html>
