@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -47,7 +48,8 @@
     }
 
     .materials,
-    .contact-section {
+    .contact-section,
+    .team-project-section {
       background-color: white;
       padding: 24px;
       border-radius: 12px;
@@ -65,8 +67,47 @@
       color: #14b8a6;
     }
 
-    .contact-section h2 {
+    .contact-section h2,
+    .team-project-section h2 {
       color: #0f766e;
+    }
+
+    .team-project-card {
+      background-color: #f0fdfa;
+      padding: 22px;
+      border-radius: 10px;
+      margin: 18px 0 25px;
+    }
+
+    .team-project-card h3,
+    .proposal-card h3 {
+      color: #0f766e;
+      margin-top: 0;
+    }
+
+    .team-project-card p,
+    .proposal-card p {
+      line-height: 1.7;
+    }
+
+    .project-link {
+      display: inline-block;
+      margin-top: 8px;
+    }
+
+    .presentation-viewer {
+      width: 100%;
+      margin-top: 18px;
+      overflow: hidden;
+      border-radius: 8px;
+      background-color: #f1f5f9;
+    }
+
+    .presentation-viewer iframe {
+      display: block;
+      width: 100%;
+      height: 580px;
+      border: none;
     }
 
     .contact-form label {
@@ -134,6 +175,10 @@
       header {
         padding: 25px;
       }
+
+      .presentation-viewer iframe {
+        height: 400px;
+      }
     }
   </style>
 </head>
@@ -179,6 +224,43 @@
         <p><a href="week%2010/">Week 10</a></p>
         <p><a href="accessibility-audit.html">Accessibility Audit</a></p>
         <p><a href="week%2010/performance-report.html">Website Performance Report</a></p>
+      </section>
+
+      <section class="team-project-section">
+        <h2>Team Project</h2>
+
+        <div class="team-project-card">
+          <h3>What's Cooking? — Everyday Recipes</h3>
+
+          <p>
+            Explore our team's project, a website focused on
+            everyday recipes and making cooking more accessible.
+          </p>
+
+          <a class="project-link"
+             href="https://erdenetsogt-delgerbat.github.io/team-Project/"
+             target="_blank"
+             rel="noopener noreferrer">
+            Visit Team Project →
+          </a>
+        </div>
+
+        <div class="proposal-card">
+          <h3>Team Project Research Proposal</h3>
+
+          <p>
+            View our team's research proposal presentation below.
+            You can navigate through the slides directly on this page.
+          </p>
+
+          <div class="presentation-viewer">
+            <iframe
+              src="https://view.officeapps.live.com/op/embed.aspx?src=https%3A%2F%2Ferdenetsogt-delgerbat.github.io%2FWeb-Programming%2Fteam-project-research-proposal.pptx"
+              title="Team Project Research Proposal Presentation"
+              allowfullscreen>
+            </iframe>
+          </div>
+        </div>
       </section>
 
       <section class="contact-section">
