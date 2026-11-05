@@ -6,8 +6,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Defer vs Async</title>
 
-  <script src="app.js" defer></script>
-  <script src="analytics.js" async></script>
+  <script src="./app.js" defer></script>
+  <script src="./analytics.js" async></script>
 
   <style>
     body {
@@ -40,35 +40,46 @@
       line-height: 1.6;
       color: #526174;
     }
-
-    .label {
-      font-weight: 700;
-    }
   </style>
 </head>
 <body>
 
   <h1>Defer vs Async</h1>
-  <p>This page demonstrates two different ways of loading JavaScript.</p>
+  <p>Compare two ways of loading JavaScript.</p>
 
   <div class="card defer">
-    <div class="label">DEFER — App Script</div>
+    <h3>DEFER — App Script</h3>
     <p id="app-status" class="result">Waiting for deferred script...</p>
   </div>
 
   <div class="card async">
-    <div class="label">ASYNC — Analytics Script</div>
+    <h3>ASYNC — Analytics Script</h3>
     <p id="analytics-status" class="result">Waiting for analytics script...</p>
   </div>
 
   <div class="card">
-    <div class="label">What to notice</div>
+    <h3>What is the difference?</h3>
     <p class="result">
-      The deferred script waits until HTML parsing finishes.
-      The async script executes as soon as its download finishes,
-      which can happen before or after HTML parsing.
+      Defer waits until HTML parsing finishes before executing.
+      Async executes as soon as its download finishes, without
+      waiting for HTML parsing to finish.
     </p>
   </div>
+
+  <script>
+    window.addEventListener("load", () => {
+      const status = document.getElementById("analytics-status");
+
+      if (window.analyticsExecutionState) {
+        status.textContent =
+          "The async script executed when the document state was: " +
+          window.analyticsExecutionState + ".";
+      } else {
+        status.textContent =
+          "The analytics script could not be loaded. Check its file path.";
+      }
+    });
+  </script>
 
 </body>
 </html>
