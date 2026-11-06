@@ -4,105 +4,199 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="light dark">
   <title>Web Programming</title>
 
   <style>
+    :root {
+      color-scheme: light;
+      --page-bg: #f0fdfa;
+      --card-bg: #ffffff;
+      --inner-bg: #f8fafc;
+      --text: #1e293b;
+      --muted: #64748b;
+      --heading: #0f766e;
+      --accent: #0f766e;
+      --accent-hover: #115e59;
+      --border: #e2e8f0;
+      --shadow: 0 4px 18px rgba(15, 23, 42, 0.06);
+      --input-bg: #ffffff;
+    }
+
+    body.dark-mode {
+      color-scheme: dark;
+      --page-bg: #0f172a;
+      --card-bg: #1e293b;
+      --inner-bg: #263449;
+      --text: #e2e8f0;
+      --muted: #a3b3c7;
+      --heading: #5eead4;
+      --accent: #2dd4bf;
+      --accent-hover: #5eead4;
+      --border: #334155;
+      --shadow: 0 4px 20px rgba(0, 0, 0, 0.18);
+      --input-bg: #172235;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
     body {
-      font-family: sans-serif;
-      background-color: #f0fdfa;
-      color: #1e293b;
+      font-family: Arial, Helvetica, sans-serif;
+      background-color: var(--page-bg);
+      color: var(--text);
       margin: 0;
+      line-height: 1.65;
+      transition: background-color 0.25s, color 0.25s;
     }
 
     .container {
-      max-width: 900px;
+      max-width: 960px;
       margin: 40px auto;
       padding: 20px;
     }
 
     header {
-      background-color: white;
-      padding: 40px;
-      border-radius: 12px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-      margin-bottom: 24px;
+      position: relative;
+      background-color: var(--card-bg);
+      padding: 38px;
+      padding-right: 150px;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      box-shadow: var(--shadow);
+      margin-bottom: 25px;
     }
 
     h1 {
-      color: #0f766e;
-      margin-bottom: 10px;
+      color: var(--heading);
+      margin: 0 0 8px;
+      font-size: 2rem;
+    }
+
+    header p {
+      color: var(--muted);
+      margin: 0;
+    }
+
+    h2 {
+      color: var(--heading);
+      margin-top: 0;
+      margin-bottom: 20px;
+    }
+
+    h3 {
+      color: var(--heading);
+      margin-top: 0;
+    }
+
+    .theme-toggle {
+      position: absolute;
+      top: 30px;
+      right: 30px;
+      padding: 10px 15px;
+      border: 1px solid var(--border);
+      border-radius: 9px;
+      background: var(--inner-bg);
+      color: var(--text);
+      font-size: 14px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.2s, border-color 0.2s;
+    }
+
+    .theme-toggle:hover {
+      border-color: var(--accent);
     }
 
     .info {
       display: flex;
       gap: 16px;
-      margin-bottom: 24px;
+      margin-bottom: 25px;
     }
 
     .info div {
       flex: 1;
-      background-color: white;
-      padding: 20px;
-      border-radius: 10px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      background-color: var(--card-bg);
+      padding: 22px;
+      border: 1px solid var(--border);
+      border-radius: 13px;
+      box-shadow: var(--shadow);
+    }
+
+    .info strong {
+      color: var(--heading);
+    }
+
+    .info p {
+      margin: 8px 0 0;
     }
 
     .materials,
     .contact-section,
     .team-project-section {
-      background-color: white;
-      padding: 24px;
-      border-radius: 12px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-      margin-bottom: 24px;
+      background-color: var(--card-bg);
+      padding: 28px;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      box-shadow: var(--shadow);
+      margin-bottom: 25px;
     }
 
     a {
-      color: #0f766e;
+      color: var(--accent);
       text-decoration: none;
       font-weight: bold;
+      transition: color 0.2s;
     }
 
     a:hover {
-      color: #14b8a6;
+      color: var(--accent-hover);
+      text-decoration: underline;
     }
 
-    .contact-section h2,
-    .team-project-section h2 {
-      color: #0f766e;
+    .materials > p {
+      margin: 10px 0;
     }
 
     .lecture-assignments {
-      margin-top: 28px;
-      padding-top: 20px;
-      border-top: 1px solid #e2e8f0;
+      margin-top: 30px;
+      padding-top: 22px;
+      border-top: 1px solid var(--border);
     }
 
     .lecture-assignments h3 {
-      color: #0f766e;
-      margin-bottom: 6px;
+      margin: 20px 0 6px;
+    }
+
+    .lecture-assignments h3:first-child {
+      margin-top: 0;
     }
 
     .lecture-assignments p {
-      line-height: 1.7;
+      margin: 6px 0;
+      color: var(--muted);
     }
 
-    .team-project-card {
-      background-color: #f0fdfa;
-      padding: 22px;
-      border-radius: 10px;
-      margin: 18px 0 25px;
+    .team-project-card,
+    .proposal-card {
+      background-color: var(--inner-bg);
+      padding: 26px;
+      border: 1px solid var(--border);
+      border-radius: 13px;
+      margin-top: 22px;
     }
 
     .team-project-card h3,
     .proposal-card h3 {
-      color: #0f766e;
       margin-top: 0;
+      margin-bottom: 10px;
     }
 
     .team-project-card p,
     .proposal-card p {
       line-height: 1.7;
+      color: var(--muted);
     }
 
     .project-link {
@@ -112,16 +206,17 @@
 
     .presentation-viewer {
       width: 100%;
-      margin-top: 18px;
+      margin-top: 20px;
       overflow: hidden;
-      border-radius: 8px;
-      background-color: #f1f5f9;
+      border-radius: 9px;
+      border: 1px solid var(--border);
+      background-color: #0f172a;
     }
 
     .presentation-viewer iframe {
       display: block;
       width: 100%;
-      height: 580px;
+      height: 560px;
       border: none;
     }
 
@@ -129,33 +224,35 @@
       display: block;
       width: 100%;
       height: auto;
+      background-color: #0f172a;
     }
 
     .contact-form label {
       display: block;
-      margin: 14px 0 6px;
+      margin: 16px 0 6px;
       font-weight: bold;
     }
 
     .contact-form input,
     .contact-form textarea {
       width: 100%;
-      box-sizing: border-box;
-      padding: 10px;
-      border: 1px solid #cbd5e1;
-      border-radius: 5px;
+      padding: 12px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background-color: var(--input-bg);
+      color: var(--text);
       font: inherit;
     }
 
     .contact-form textarea {
-      min-height: 120px;
+      min-height: 130px;
       resize: vertical;
     }
 
     .contact-form input:focus,
     .contact-form textarea:focus {
-      outline: 2px solid #99f6e4;
-      border-color: #0f766e;
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
     }
 
     .contact-form input:valid:not(:placeholder-shown),
@@ -169,36 +266,64 @@
     }
 
     .contact-form button {
-      margin-top: 16px;
-      padding: 10px 22px;
-      background-color: #0f766e;
-      color: white;
+      margin-top: 18px;
+      padding: 12px 24px;
+      background-color: var(--accent);
+      color: #ffffff;
       border: none;
-      border-radius: 5px;
+      border-radius: 8px;
       font-size: 15px;
+      font-weight: bold;
       cursor: pointer;
+      transition: background-color 0.2s;
     }
 
     .contact-form button:hover {
-      background-color: #115e59;
+      background-color: var(--accent-hover);
     }
 
     #contact-status {
       margin-top: 12px;
-      color: #0f766e;
+      color: var(--heading);
     }
 
-    @media (max-width: 600px) {
-      .info {
-        flex-direction: column;
+    @media (max-width: 650px) {
+      .container {
+        margin: 15px auto;
+        padding: 14px;
       }
 
       header {
         padding: 25px;
+        padding-top: 75px;
+      }
+
+      .theme-toggle {
+        top: 20px;
+        right: 20px;
+      }
+
+      .info {
+        flex-direction: column;
+      }
+
+      .materials,
+      .contact-section,
+      .team-project-section {
+        padding: 20px;
+      }
+
+      .team-project-card,
+      .proposal-card {
+        padding: 18px;
       }
 
       .presentation-viewer iframe {
         height: 400px;
+      }
+
+      h1 {
+        font-size: 1.7rem;
       }
     }
   </style>
@@ -208,6 +333,15 @@
   <div class="container">
 
     <header>
+      <button
+        class="theme-toggle"
+        id="theme-toggle"
+        type="button"
+        aria-label="Switch to dark mode"
+        aria-pressed="false">
+        🌙 Dark Mode
+      </button>
+
       <h1>Web Programming</h1>
       <p>A collection of my Web Programming class work</p>
     </header>
@@ -289,6 +423,14 @@
              rel="noopener noreferrer">
             Visit Team Project →
           </a>
+
+          <a class="project-link"
+             href="https://github.com/ERDENETSOGT-DELGERBAT/team-Project"
+             target="_blank"
+             rel="noopener noreferrer"
+             style="margin-left: 18px;">
+            GitHub Repository →
+          </a>
         </div>
 
         <div class="proposal-card">
@@ -316,7 +458,11 @@
           </p>
 
           <div class="presentation-viewer">
-            <video controls playsinline preload="metadata">
+            <video
+              controls
+              playsinline
+              preload="metadata"
+            >
               <source src="team-project-presentation.mp4" type="video/mp4">
               Your browser does not support HTML video.
             </video>
@@ -377,6 +523,41 @@
   </div>
 
   <script>
+    // Dark mode toggle
+    const themeToggle = document.getElementById('theme-toggle');
+
+    function updateThemeButton(isDark) {
+      themeToggle.textContent = isDark ? '☀️ Light Mode' : '🌙 Dark Mode';
+      themeToggle.setAttribute('aria-pressed', String(isDark));
+      themeToggle.setAttribute(
+        'aria-label',
+        isDark ? 'Switch to light mode' : 'Switch to dark mode'
+      );
+    }
+
+    // Restore the previously selected theme
+    const savedTheme = localStorage.getItem('web-programming-theme');
+
+    if (savedTheme === 'dark') {
+      document.body.classList.add('dark-mode');
+    }
+
+    updateThemeButton(document.body.classList.contains('dark-mode'));
+
+    themeToggle.addEventListener('click', function() {
+      document.body.classList.toggle('dark-mode');
+
+      const isDark = document.body.classList.contains('dark-mode');
+
+      localStorage.setItem(
+        'web-programming-theme',
+        isDark ? 'dark' : 'light'
+      );
+
+      updateThemeButton(isDark);
+    });
+
+    // Contact form
     document.getElementById('contact-form').addEventListener('submit', function(event) {
       event.preventDefault();
 
