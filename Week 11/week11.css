@@ -1,0 +1,136 @@
+
+:root {
+  --page-bg: #f0fdfa;
+  --card-bg: #ffffff;
+  --inner-bg: #f8fafc;
+  --text: #1e293b;
+  --muted: #64748b;
+  --heading: #0f766e;
+  --accent: #0f766e;
+  --border: #e2e8f0;
+  --shadow: 0 4px 18px rgba(15, 23, 42, .06);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--page-bg);
+  color: var(--text);
+  font-family: Arial, Helvetica, sans-serif;
+  line-height: 1.65;
+}
+
+.topbar {
+  background: var(--card-bg);
+  border-bottom: 1px solid var(--border);
+}
+
+.nav {
+  max-width: 1000px;
+  min-height: 65px;
+  margin: auto;
+  padding: 10px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.nav a {
+  color: var(--accent);
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 13px;
+}
+
+.brand {
+  color: var(--heading) !important;
+  letter-spacing: 1px;
+}
+
+.container {
+  max-width: 1000px;
+  margin: 35px auto;
+  padding: 20px;
+}
+
+.hero {
+  padding: 25px 0;
+}
+
+.eyebrow {
+  color: var(--accent);
+  font-size: 11px;
+  font-weight: bold;
+  letter-spacing: 1.4px;
+}
+
+h1, h2 {
+  color: var(--heading);
+}
+
+h1 {
+  font-size: clamp(30px, 5vw, 45px);
+  line-height: 1.15;
+}
+
+p {
+  color: var(--muted);
+}
+
+.content-card {
+  padding: 25px;
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 13px;
+  box-shadow: var(--shadow);
+}
+
+.result-frame {
+  display: block;
+  width: 100%;
+  height: 850px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: #ffffff;
+}
+
+.result-frame.tall {
+  height: 1100px;
+}
+
+.back-link {
+  color: var(--accent);
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: bold;
+}
+
+footer {
+  padding: 25px;
+  color: var(--muted);
+  text-align: center;
+  font-size: 12px;
+}
+
+@media (max-width: 650px) {
+  .container {
+    margin: 15px auto;
+    padding: 14px;
+  }
+
+  .content-card {
+    padding: 14px;
+  }
+
+  .result-frame {
+    height: 850px;
+  }
+
+  .result-frame.tall {
+    height: 1100px;
+  }
+}
