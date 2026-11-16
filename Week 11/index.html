@@ -4,87 +4,213 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Week 11 - React Components & Props</title>
+  <meta name="color-scheme" content="light dark">
+  <title>Week 11 | Web Programming</title>
+
   <style>
+    :root {
+      --page-bg: #f0fdfa;
+      --card-bg: #ffffff;
+      --inner-bg: #f8fafc;
+      --text: #1e293b;
+      --muted: #64748b;
+      --heading: #0f766e;
+      --accent: #0f766e;
+      --border: #e2e8f0;
+      --shadow: 0 4px 18px rgba(15, 23, 42, .06);
+    }
+
+    body.dark-mode {
+      --page-bg: #0f172a;
+      --card-bg: #1e293b;
+      --inner-bg: #263449;
+      --text: #e2e8f0;
+      --muted: #a3b3c7;
+      --heading: #5eead4;
+      --accent: #2dd4bf;
+      --border: #334155;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
     body {
+      margin: 0;
+      background: var(--page-bg);
+      color: var(--text);
       font-family: Arial, Helvetica, sans-serif;
-      max-width: 900px;
+      line-height: 1.65;
+    }
+
+    .container {
+      max-width: 960px;
       margin: 40px auto;
       padding: 20px;
-      background: #f0fdfa;
-      color: #1e293b;
-      line-height: 1.7;
     }
 
-    h1, h2 { color: #0f766e; }
-
-    .item {
-      padding: 18px 22px;
-      margin: 14px 0;
-      background: white;
-      border: 1px solid #e2e8f0;
-      border-radius: 10px;
+    header, .assignments {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      box-shadow: var(--shadow);
     }
 
-    a {
-      color: #0f766e;
+    header {
+      padding: 35px;
+      margin-bottom: 25px;
+    }
+
+    h1, h2 {
+      color: var(--heading);
+    }
+
+    h1 {
+      margin-top: 0;
+      font-size: 2rem;
+    }
+
+    header p, .assignment p {
+      color: var(--muted);
+    }
+
+    .back-link {
+      display: inline-block;
+      margin-bottom: 20px;
+      color: var(--accent);
       font-weight: bold;
       text-decoration: none;
     }
 
-    a:hover { text-decoration: underline; }
-
-    .links {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 18px;
+    .assignments {
+      padding: 28px;
     }
 
-    p { color: #64748b; font-size: 14px; }
+    .assignment {
+      padding: 20px;
+      margin-top: 15px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      background: var(--inner-bg);
+    }
+
+    .assignment:first-of-type {
+      margin-top: 0;
+    }
+
+    .assignment h2 {
+      margin: 0 0 5px;
+      font-size: 19px;
+    }
+
+    .assignment p {
+      margin: 0;
+      font-size: 13px;
+    }
+
+    .assignment a {
+      display: block;
+      text-decoration: none;
+    }
+
+    .assignment a:hover h2 {
+      text-decoration: underline;
+    }
+
+    .type {
+      color: var(--accent);
+      font-size: 11px;
+      font-weight: bold;
+      letter-spacing: 1px;
+    }
+
+    footer {
+      padding: 25px;
+      color: var(--muted);
+      text-align: center;
+      font-size: 12px;
+    }
+
+    @media (max-width: 650px) {
+      .container {
+        margin: 15px auto;
+        padding: 14px;
+      }
+
+      header, .assignments {
+        padding: 20px;
+      }
+    }
   </style>
 </head>
+
 <body>
+  <main class="container">
 
-  <p><a href="../index.html">← Back to Web Programming</a></p>
+    <a class="back-link" href="../index.html">← Web Programming</a>
 
-  <h1>Week 11 — React Components & Props</h1>
+    <header>
+      <p>GACHON UNIVERSITY · WEB PROGRAMMING</p>
+      <h1>Week 11 — React Components & Props</h1>
+      <p>Exercises, practical tasks and homework.</p>
+    </header>
 
-  <div class="item">
-    <h2>Exercise 1 — Profile Card Component</h2>
-    <div class="links">
-      <a href="https://github.com/ERDENETSOGT-DELGERBAT/task11/blob/main/src/ProfileCard.jsx" target="_blank">View Exercise 1 ↗</a>
-    </div>
-  </div>
+    <section class="assignments">
 
-  <div class="item">
-    <h2>Exercise 2 — Notification List</h2>
-    <div class="links">
-      <a href="https://github.com/ERDENETSOGT-DELGERBAT/task11/blob/main/src/NotificationList.jsx" target="_blank">View Exercise 2 ↗</a>
-    </div>
-  </div>
+      <div class="assignment">
+        <a href="task1.html">
+          <span class="type">EXERCISE 01</span>
+          <h2>Profile Card Component</h2>
+          <p>React components and props.</p>
+        </a>
+      </div>
 
-  <div class="item">
-    <h2>Exercise 3 — Reusable Card Component</h2>
-    <div class="links">
-      <a href="https://github.com/ERDENETSOGT-DELGERBAT/task11/blob/main/src/Card.jsx" target="_blank">View Exercise 3 ↗</a>
-    </div>
-  </div>
+      <div class="assignment">
+        <a href="task2.html">
+          <span class="type">EXERCISE 02</span>
+          <h2>Notification List</h2>
+          <p>Conditional rendering in React.</p>
+        </a>
+      </div>
 
-  <div class="item">
-    <h2>Task 11-A — Student Directory & Course Catalog</h2>
-    <div class="links">
-      <a href="https://github.com/ERDENETSOGT-DELGERBAT/task11" target="_blank">Source Code ↗</a>
-      <a href="https://erdenetsogt-delgerbat.github.io/task11/" target="_blank">Live Application ↗</a>
-    </div>
-  </div>
+      <div class="assignment">
+        <a href="task3.html">
+          <span class="type">EXERCISE 03</span>
+          <h2>Reusable Card Component</h2>
+          <p>Reusable components and the children prop.</p>
+        </a>
+      </div>
 
-  <div class="item">
-    <h2>Homework — React Portfolio Gallery</h2>
-    <div class="links">
-      <a href="https://github.com/ERDENETSOGT-DELGERBAT/portfolio" target="_blank">Source Code ↗</a>
-      <a href="https://erdenetsogt-delgerbat.github.io/portfolio/" target="_blank">Live Website ↗</a>
-    </div>
-  </div>
+      <div class="assignment">
+        <a href="student-directory.html">
+          <span class="type">TASK 11-A</span>
+          <h2>Student Directory</h2>
+          <p>Student profiles and reusable components.</p>
+        </a>
+      </div>
 
+      <div class="assignment">
+        <a href="course-catalog.html">
+          <span class="type">PRACTICE CHALLENGE</span>
+          <h2>Course Catalog</h2>
+          <p>Course information and conditional badges.</p>
+        </a>
+      </div>
+
+      <div class="assignment">
+        <a href="homework.html">
+          <span class="type">HOMEWORK</span>
+          <h2>React Portfolio Gallery</h2>
+          <p>Project gallery, reusable cards and technology filters.</p>
+        </a>
+      </div>
+
+    </section>
+
+    <footer>
+      Web Programming · Gachon University · Week 11
+    </footer>
+
+  </main>
 </body>
 </html>
