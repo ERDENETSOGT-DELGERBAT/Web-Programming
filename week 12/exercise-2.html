@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Exercise 2 — Task List | Week 12</title>
+  <link rel="stylesheet" href="week12.css">
+</head>
+<body>
+  <main class="container">
+    <a class="back-link" href="index.html">← Back to Week 12</a>
+    <header class="page-header">
+      <p class="eyebrow">EXERCISE 02</p>
+      <h1>Add & Remove Items from a List</h1>
+      <p>Store list items in an array in state. Add a task using the input and remove it with the × button.</p>
+    </header>
+    <section class="work-card">
+      <div id="root"></div>
+    </section>
+    <footer>React State · Arrays · Week 12</footer>
+  </main>
+  <script src="https://cdn.jsdelivr.net/npm/react@18.3.1/umd/react.production.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/react-dom@18.3.1/umd/react-dom.production.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@babel/standalone@7.25.9/babel.min.js"></script>
+  <script type="text/babel">
+    const { useState } = React;
+
+    function TaskList() {
+      const [tasks, setTasks] = useState([]);
+      const [input, setInput] = useState('');
+      const [nextId, setNextId] = useState(1);
+
+      function addTask(event) {
+        event.preventDefault();
+        const text = input.trim();
+        if (!text) return;
+        setTasks(previous => [...previous, { id: nextId, text }]);
+        setNextId(previous => previous + 1);
+        setInput('');
+      }
+
+      function removeTask(id) {
+        setTasks(previous => previous.filter(task => task.id !== id));
+      }
+
+      return (
+        <div>
+          <p className="eyebrow">MY TASKS</p>
+          <form className="task-form" onSubmit={addTask}>
+            <input
+              className="text-input"
+              type="text"
+              value={input}
+              onChange={event => setInput(event.target.value)}
+              placeholder="Enter a new task"
+              aria-label="New task"
+            />
+            <button type="submit">Add task</button>
+          </form>
+          <p className="cart-count" aria-live="polite">{tasks.length} {tasks.length === 1 ? 'task' : 'tasks'} in your list</p>
+          {tasks.length === 0 ? (
+            <div className="empty-state">Your task list is empty. Add your first task above.</div>
+          ) : (
+            <ul className="task-list">
+              {tasks.map(task => (
+                <li key={task.id}>
+                  <span>{task.text}</span>
+                  <button className="danger" type="button" onClick={() => removeTask(task.id)} aria-label={`Remove ${task.text}`}>×</button>
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
+      );
+    }
+
+    ReactDOM.createRoot(document.getElementById('root')).render(<TaskList />);
+  </script>
+</body>
+</html>
