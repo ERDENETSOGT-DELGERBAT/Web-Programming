@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shopping Cart Counter | Week 12</title>
+  <link rel="stylesheet" href="week12.css">
+</head>
+<body>
+  <main class="container">
+    <a class="back-link" href="index.html">← Back to Week 12</a>
+    <header class="page-header">
+      <p class="eyebrow">PRACTICE CHALLENGE</p>
+      <h1>Build a Shopping Cart Counter</h1>
+      <p>Three menu items with independent quantities. Quantity cannot go below zero, and the total updates from state.</p>
+    </header>
+    <section class="work-card">
+      <div id="root"></div>
+    </section>
+    <footer>React State · Objects in State · Week 12</footer>
+  </main>
+  <script src="https://cdn.jsdelivr.net/npm/react@18.3.1/umd/react.production.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/react-dom@18.3.1/umd/react-dom.production.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@babel/standalone@7.25.9/babel.min.js"></script>
+  <script type="text/babel">
+    const { useState } = React;
+    const menuItems = [
+      { id: 1, name: '커피', englishName: 'Coffee', price: 4500 },
+      { id: 2, name: '샌드위치', englishName: 'Sandwich', price: 7000 },
+      { id: 3, name: '물', englishName: 'Water', price: 1000 }
+    ];
+    const money = new Intl.NumberFormat('ko-KR', { style: 'currency', currency: 'KRW', maximumFractionDigits: 0 });
+
+    function ShoppingCart() {
+      const [quantities, setQuantities] = useState({ 1: 0, 2: 0, 3: 0 });
+
+      function changeQuantity(id, amount) {
+        setQuantities(previous => ({
+          ...previous,
+          [id]: Math.max(0, previous[id] + amount)
+        }));
+      }
+
+      const total = menuItems.reduce(
+        (sum, item) => sum + item.price * quantities[item.id],
+        0
+      );
+      const totalQuantity = Object.values(quantities).reduce((sum, quantity) => sum + quantity, 0);
+
+      return (
+        <div>
+          <div className="menu-grid">
+            {menuItems.map(item => (
+              <article className="menu-item" key={item.id}>
+                <h3>{item.name}</h3>
+                <p className="cart-count">{item.englishName}</p>
+                <p className="price">{money.format(item.price)}</p>
+                <p className="quantity" aria-live="polite">{quantities[item.id]}</p>
+                <div className="controls" style={{ justifyContent: 'center' }}>
+                  <button type="button" className="secondary" onClick={() => changeQuantity(item.id, -1)} disabled={quantities[item.id] === 0} aria-label={`Decrease ${item.name}`}>−</button>
+                  <button type="button" onClick={() => changeQuantity(item.id, 1)} aria-label={`Increase ${item.name}`}>+</button>
+                </div>
+              </article>
+            ))}
+          </div>
+          <div className="grand-total" aria-live="polite">
+            <div>Total items: {totalQuantity}</div>
+            <div>Total price: {money.format(total)}</div>
+          </div>
+        </div>
+      );
+    }
+
+    ReactDOM.createRoot(document.getElementById('root')).render(<ShoppingCart />);
+  </script>
+</body>
+</html>
